@@ -140,6 +140,15 @@ export class CanvasIO {
 			this.polygon(...vectors.map(v => [v.x, v.y]).flat());
 		}
 	}
+	moveTo(point: Vector) {
+		this.ctx.moveTo(point.x, point.y);
+	}
+	lineTo(point: Vector) {
+		this.ctx.lineTo(point.x, point.y);
+	}
+	arcTo(point1: Vector, point2: Vector, radius: number) {
+		this.ctx.arcTo(point1.x, point1.y, point2.x, point2.y, radius);
+	}
 	fillPoly(...coordinates: number[] | Vector[]) {
 		this.ctx.beginPath();
 		this.polygon(...coordinates);
