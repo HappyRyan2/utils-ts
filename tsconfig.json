@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+	  "target": "es2022",
+	  "module": "ES2022",
+	  "sourceMap": true,
+	  "outDir": "compiled",
+	  "moduleResolution": "node",
+	  
+
+	  // compiler options that I like:
+	  "strict": true,
+	  "noImplicitAny": true,
+	  "noImplicitReturns": true,
+	  "strictNullChecks": true
+	}
+  }
+  
