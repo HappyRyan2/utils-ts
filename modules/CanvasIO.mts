@@ -150,6 +150,11 @@ export class CanvasIO {
 		this.ctx.arc(x, y, radius, 0, 2 * Math.PI);
 		this.ctx.fill();
 	}
+	strokeCircle(x: number, y: number, radius: number) {
+		this.ctx.beginPath();
+		this.ctx.arc(x, y, radius, 0, 2 * Math.PI);
+		this.ctx.stroke();
+	}
 	gradientLine(x1: number, y1: number, x2: number, y2: number, innerColor: string, innerThickness: number, outerColor: string, totalThickness: number) {
 		const mainPerpendicular = new Vector(x2, y2).subtract(new Vector(x1, y1)).normalize().rotate(90);
 		for(const perpendicular of [mainPerpendicular, mainPerpendicular.multiply(-1)]) {
