@@ -149,6 +149,11 @@ export class CanvasIO {
 	arcTo(point1: Vector, point2: Vector, radius: number) {
 		this.ctx.arcTo(point1.x, point1.y, point2.x, point2.y, radius);
 	}
+	arcAbout(center: Vector, point1: Vector, point2: Vector, radius: number) {
+		const angle1 = point1.subtract(center).angle();
+		const angle2 = point2.subtract(center).angle();
+		this.ctx.arc(center.x, center.y, radius, angle1, angle2);
+	}
 	fillPoly(...coordinates: number[] | Vector[]) {
 		this.ctx.beginPath();
 		this.polygon(...coordinates);
