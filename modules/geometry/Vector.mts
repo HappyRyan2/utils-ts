@@ -117,4 +117,7 @@ export class Vector {
 		const newAngle = currentAngle + angle;
 		return new Vector(Math.cos(newAngle) * this.magnitude(), Math.sin(newAngle) * this.magnitude());
 	}
+	angle() {
+		return Math.atan2(this.y, this.x);
+	}
 }
