@@ -86,6 +86,18 @@ export class Sequence {
 			}
 		}
 	}
+	*multisetsWithSum(setSize: number, sum: number, lowerBound: number = -Infinity): Generator<number[]> {
+		if(setSize === 0 && sum === 0) {
+			yield [];
+		}
+		else if(setSize !== 0) {
+			for(const firstTerm of this.termsBetween(lowerBound, sum, "inclusive", "inclusive")) {
+				for(const set of this.multisetsWithSum(setSize - 1, sum - firstTerm, firstTerm)) {
+					yield [firstTerm, ...set];
+				}
+			}
+		}
+	}
 
 
 

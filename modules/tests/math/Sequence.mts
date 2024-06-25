@@ -51,3 +51,14 @@ describe("Sequence.setsWithSum", () => {
 		]);
 	});
 });
+describe("Sequence.multisetsWithSum", () => {
+	it("can return the set of all sets of 2 positive integers that sum to 6", () => {
+		const POSITIVE_INTEGERS = new Sequence(n => n + 1);
+		const sets = [...POSITIVE_INTEGERS.multisetsWithSum(2, 6)];
+		assert.sameDeepMembers(sets, [
+			[1, 5],
+			[2, 4],
+			[3, 3]
+		]);
+	});
+});
