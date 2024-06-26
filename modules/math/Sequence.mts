@@ -48,43 +48,26 @@ export class Sequence {
 
 
 	*termsBelow(upperBound: number, mode: "inclusive" | "exclusive" = "inclusive") {
-		let index = 0;
-		let term = this.getTerm(index);
-		while((mode === "inclusive" && term <= upperBound) || (mode === "exclusive" && term < upperBound)) {
+		for(const [index, term] of this.entriesBelow(upperBound, mode)) {
 			yield term;
-			index ++;
-			term = this.getTerm(index);
 		}
 	}
 	*entriesBelow(upperBound: number, mode: "inclusive" | "exclusive") {
-		let index = 0;
-		let term = this.getTerm(index);
-		while((mode === "inclusive" && term <= upperBound) || (mode === "exclusive" && term < upperBound)) {
-			yield [index, term];
-			index ++;
-			term = this.getTerm(index);
-		}
+		yield* this.entriesBetween(-Infinity, upperBound, "inclusive", mode);
 	}
 	*termsBetween(lowerBound: number, upperBound: number, lowerMode: "inclusive" | "exclusive" = "inclusive", upperMode: "inclusive" | "exclusive" = "exclusive") {
-		let index = 0;
-		let term = this.getTerm(index);
-		while((upperMode === "inclusive" && term <= upperBound) || (upperMode === "exclusive" && term < upperBound)) {
-			if((lowerMode === "inclusive" && term >= lowerBound) || (lowerMode === "exclusive" && term > lowerBound)) {
-				yield term;
-			}
-			index ++;
-			term = this.getTerm(index);
+		for(const [index, term] of this.entriesBetween(lowerBound, upperBound, lowerMode, upperMode)) {
+			yield term;
 		}
 	}
 	*entriesBetween(lowerBound: number, upperBound: number, lowerMode: "inclusive" | "exclusive" = "inclusive", upperMode: "inclusive" | "exclusive" = "exclusive") {
-		let index = 0;
-		let term = this.getTerm(index);
-		while((upperMode === "inclusive" && term <= upperBound) || (upperMode === "exclusive" && term < upperBound)) {
+		for(const [index, term] of this.entries()) {
+			if((upperMode === "inclusive" && term > upperBound) || (upperMode === "exclusive" && term >= upperBound)) {
+				return;
+			}
 			if((lowerMode === "inclusive" && term >= lowerBound) || (lowerMode === "exclusive" && term > lowerBound)) {
 				yield [index, term];
 			}
-			index ++;
-			term = this.getTerm(index);
 		}
 	}
 	slice(startIndex: number, endIndex: number, startMode: "inclusive" | "exclusive" = "inclusive", endMode: "inclusive" | "exclusive" = "exclusive") {
