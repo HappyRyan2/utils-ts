@@ -100,11 +100,11 @@ describe("Sequence.entriesBetween", () => {
 describe("Sequence.setsWithSum", () => {
 	it("returns all the sets of elements of the sequence that add up to the given value, sorted in ascending order", () => {
 		const sequence = new Sequence(n => n);
-		const sets = [...sequence.setsWithSum(2, 5)];
+		const sets = [...sequence.setsWithSum(2, 6)];
 		assert.sameDeepMembers(sets, [
-			[0, 5],
-			[1, 4],
-			[2, 3],
+			[0, 6],
+			[1, 5],
+			[2, 4],
 		]);
 	});
 });
