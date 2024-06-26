@@ -104,6 +104,7 @@ export class Sequence {
 
 
 
+	static POSITIVE_INTEGERS = new Sequence(n => n + 1);
 	static PRIMES = new Sequence(function*() {
 		let num = 2;
 		while(true) {
