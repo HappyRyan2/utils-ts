@@ -69,4 +69,14 @@ export class MathUtils {
 			return [coef1, coef2 - Math.floor(num1 / num2) * coef1];
 		}
 	}
+	static factorial(num: number) {
+		if(num < 0 || num % 1 !== 0) {
+			throw new Error(`Cannot calculate the factorial of a non-integer (${num}).`);
+		}
+		let result = 1;
+		for(let i = 1; i <= num; i ++) {
+			result *= i;
+		}
+		return result;
+	}
 }

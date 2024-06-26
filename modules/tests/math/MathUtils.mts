@@ -68,3 +68,9 @@ describe("MathUtils.gcd", () => {
 		assert.equal(MathUtils.gcd(24, 14), 2);
 	});
 });
+describe("MathUtils.factorial", () => {
+	it("correctly calculates factorials", () => {
+		const result = MathUtils.factorial(4);
+		assert.equal(result, 24);
+	});
+});
