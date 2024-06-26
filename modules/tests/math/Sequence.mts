@@ -107,6 +107,13 @@ describe("Sequence.setsWithSum", () => {
 			[2, 4],
 		]);
 	});
+	it("returns sets of any size when the setSize parameter is omitted", () => {
+		const sets = [...Sequence.POSITIVE_INTEGERS.setsWithSum(4)];
+		assert.sameDeepMembers(sets, [
+			[4],
+			[1, 3]
+		]);
+	});
 });
 describe("Sequence.multisetsWithSum", () => {
 	it("can return the set of all sets of 2 positive integers that sum to 6", () => {
@@ -116,6 +123,16 @@ describe("Sequence.multisetsWithSum", () => {
 			[1, 5],
 			[2, 4],
 			[3, 3]
+		]);
+	});
+	it("returns multisets of any size when the setSize parameter is omitted", () => {
+		const sets = [...Sequence.POSITIVE_INTEGERS.multisetsWithSum(4)];
+		assert.sameDeepMembers(sets, [
+			[4],
+			[1, 3],
+			[2, 2],
+			[1, 1, 2],
+			[1, 1, 1, 1]
 		]);
 	});
 });

@@ -99,8 +99,13 @@ export class Sequence {
 	Methods that assume the sequence is positive and increasing:
 	------------------------------------------------------------
 	*/
-	*setsWithSum(sum: number, setSize: number): Generator<number[]> {
-		if(setSize === 0 && sum === 0) {
+	*setsWithSum(sum: number, setSize?: number): Generator<number[]> {
+		if(setSize == undefined) {
+			for(let size = 0; size <= sum; size ++) {
+				yield* this.setsWithSum(sum, size);
+			}
+		}
+		else if(setSize === 0 && sum === 0) {
 			yield [];
 		}
 		else if(setSize !== 0) {
@@ -111,8 +116,13 @@ export class Sequence {
 			}
 		}
 	}
-	*multisetsWithSum(sum: number, setSize: number): Generator<number[]> {
-		if(setSize === 0 && sum === 0) {
+	*multisetsWithSum(sum: number, setSize?: number): Generator<number[]> {
+		if(setSize == undefined) {
+			for(let size = 0; size <= sum; size ++) {
+				yield* this.multisetsWithSum(sum, size);
+			}
+		}
+		else if(setSize === 0 && sum === 0) {
 			yield [];
 		}
 		else if(setSize !== 0) {
