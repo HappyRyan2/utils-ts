@@ -99,25 +99,25 @@ export class Sequence {
 	Methods that assume the sequence is positive and increasing:
 	------------------------------------------------------------
 	*/
-	*setsWithSum(setSize: number, sum: number): Generator<number[]> {
+	*setsWithSum(sum: number, setSize: number): Generator<number[]> {
 		if(setSize === 0 && sum === 0) {
 			yield [];
 		}
 		else if(setSize !== 0) {
 			for(const [index, firstTerm] of this.entriesBelow(sum, "inclusive")) {
-				for(const set of new Sequence(n => this.getTerm(n + index + 1)).setsWithSum(setSize - 1, sum - firstTerm)) {
+				for(const set of new Sequence(n => this.getTerm(n + index + 1)).setsWithSum(sum - firstTerm, setSize - 1)) {
 					yield [firstTerm, ...set];
 				}
 			}
 		}
 	}
-	*multisetsWithSum(setSize: number, sum: number): Generator<number[]> {
+	*multisetsWithSum(sum: number, setSize: number): Generator<number[]> {
 		if(setSize === 0 && sum === 0) {
 			yield [];
 		}
 		else if(setSize !== 0) {
 			for(const [index, firstTerm] of this.entriesBelow(sum, "inclusive")) {
-				for(const set of new Sequence(n => this.getTerm(n + index)).multisetsWithSum(setSize - 1, sum - firstTerm)) {
+				for(const set of new Sequence(n => this.getTerm(n + index)).multisetsWithSum(sum - firstTerm, setSize - 1)) {
 					yield [firstTerm, ...set];
 				}
 			}

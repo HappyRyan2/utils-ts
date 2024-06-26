@@ -100,7 +100,7 @@ describe("Sequence.entriesBetween", () => {
 describe("Sequence.setsWithSum", () => {
 	it("returns all the sets of elements of the sequence that add up to the given value, sorted in ascending order", () => {
 		const sequence = new Sequence(n => n);
-		const sets = [...sequence.setsWithSum(2, 6)];
+		const sets = [...sequence.setsWithSum(6, 2)];
 		assert.sameDeepMembers(sets, [
 			[0, 6],
 			[1, 5],
@@ -111,7 +111,7 @@ describe("Sequence.setsWithSum", () => {
 describe("Sequence.multisetsWithSum", () => {
 	it("can return the set of all sets of 2 positive integers that sum to 6", () => {
 		const POSITIVE_INTEGERS = new Sequence(n => n + 1);
-		const sets = [...POSITIVE_INTEGERS.multisetsWithSum(2, 6)];
+		const sets = [...POSITIVE_INTEGERS.multisetsWithSum(6, 2)];
 		assert.sameDeepMembers(sets, [
 			[1, 5],
 			[2, 4],
