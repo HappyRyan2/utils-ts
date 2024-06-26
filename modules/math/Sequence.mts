@@ -99,25 +99,25 @@ export class Sequence {
 	Methods that assume the sequence is positive and increasing:
 	------------------------------------------------------------
 	*/
-	*setsWithSum(setSize: number, sum: number, lowerBound: number = -Infinity): Generator<number[]> {
+	*setsWithSum(setSize: number, sum: number): Generator<number[]> {
 		if(setSize === 0 && sum === 0) {
 			yield [];
 		}
 		else if(setSize !== 0) {
-			for(const firstTerm of this.termsBetween(lowerBound, sum, "exclusive", "inclusive")) {
-				for(const set of this.setsWithSum(setSize - 1, sum - firstTerm, firstTerm)) {
+			for(const [index, firstTerm] of this.entriesBelow(sum, "inclusive")) {
+				for(const set of new Sequence(n => this.getTerm(n + index + 1)).setsWithSum(setSize - 1, sum - firstTerm)) {
 					yield [firstTerm, ...set];
 				}
 			}
 		}
 	}
-	*multisetsWithSum(setSize: number, sum: number, lowerBound: number = -Infinity): Generator<number[]> {
+	*multisetsWithSum(setSize: number, sum: number): Generator<number[]> {
 		if(setSize === 0 && sum === 0) {
 			yield [];
 		}
 		else if(setSize !== 0) {
-			for(const firstTerm of this.termsBetween(lowerBound, sum, "inclusive", "inclusive")) {
-				for(const set of this.multisetsWithSum(setSize - 1, sum - firstTerm, firstTerm)) {
+			for(const [index, firstTerm] of this.entriesBelow(sum, "inclusive")) {
+				for(const set of new Sequence(n => this.getTerm(n + index)).multisetsWithSum(setSize - 1, sum - firstTerm)) {
 					yield [firstTerm, ...set];
 				}
 			}
