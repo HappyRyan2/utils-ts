@@ -63,6 +63,40 @@ describe("Sequence.entriesBelow", () => {
 		]);
 	});
 });
+describe("Sequence.entriesBetween", () => {
+	it("works when both modes are inclusive", () => {
+		const sequence = new Sequence(n => n ** 2); // 0, 1, 4, 9, ...
+		const entries = [...sequence.entriesBetween(9, 25, "inclusive", "inclusive")];
+		assert.deepEqual(entries, [
+			[3, 9],
+			[4, 16],
+			[5, 25]
+		]);
+	});
+	it("works when lowerMode is inclusive and upperMode is exclusive", () => {
+		const sequence = new Sequence(n => n ** 2); // 0, 1, 4, 9, ...
+		const entries = [...sequence.entriesBetween(9, 25, "inclusive", "exclusive")];
+		assert.deepEqual(entries, [
+			[3, 9],
+			[4, 16]
+		]);
+	});
+	it("works when lowerMode is exclusive and upperMode is inclusive", () => {
+		const sequence = new Sequence(n => n ** 2); // 0, 1, 4, 9, ...
+		const entries = [...sequence.entriesBetween(9, 25, "exclusive", "inclusive")];
+		assert.deepEqual(entries, [
+			[4, 16],
+			[5, 25],
+		]);
+	});
+	it("works when both modes are exclusive", () => {
+		const sequence = new Sequence(n => n ** 2); // 0, 1, 4, 9, ...
+		const entries = [...sequence.entriesBetween(9, 25, "exclusive", "exclusive")];
+		assert.deepEqual(entries, [
+			[4, 16]
+		]);
+	});
+});
 describe("Sequence.setsWithSum", () => {
 	it("returns all the sets of elements of the sequence that add up to the given value, sorted in ascending order", () => {
 		const sequence = new Sequence(n => n);

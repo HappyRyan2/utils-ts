@@ -76,6 +76,17 @@ export class Sequence {
 			term = this.getTerm(index);
 		}
 	}
+	*entriesBetween(lowerBound: number, upperBound: number, lowerMode: "inclusive" | "exclusive" = "inclusive", upperMode: "inclusive" | "exclusive" = "exclusive") {
+		let index = 0;
+		let term = this.getTerm(index);
+		while((upperMode === "inclusive" && term <= upperBound) || (upperMode === "exclusive" && term < upperBound)) {
+			if((lowerMode === "inclusive" && term >= lowerBound) || (lowerMode === "exclusive" && term > lowerBound)) {
+				yield [index, term];
+			}
+			index ++;
+			term = this.getTerm(index);
+		}
+	}
 	slice(startIndex: number, endIndex: number, startMode: "inclusive" | "exclusive" = "inclusive", endMode: "inclusive" | "exclusive" = "exclusive") {
 		let result = [];
 		for(let index = (startMode === "inclusive") ? startIndex : startIndex + 1; (endMode === "inclusive") ? (index <= endIndex) : (index < endIndex); index ++) {
