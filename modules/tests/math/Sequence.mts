@@ -40,6 +40,29 @@ describe("Sequence.getTerm", () => {
 		assert.equal(timesYielded, 8);
 	});
 });
+describe("Sequence.entriesBelow", () => {
+	it("can yield all the terms and indices such that the term is less than or equal to the given maximum", () => {
+		const sequence = new Sequence(n => 2 ** n); // 1, 2, 4, 8, ...
+		const entries = [...sequence.entriesBelow(16, "inclusive")];
+		assert.deepEqual(entries, [
+			[0, 1], 
+			[1, 2], 
+			[2, 4], 
+			[3, 8],
+			[4, 16]
+		]);
+	});
+	it("can yield all the terms and indices such that the term is strictly less than the given maximum", () => {
+		const sequence = new Sequence(n => 2 ** n); // 1, 2, 4, 8, ...
+		const entries = [...sequence.entriesBelow(16, "exclusive")];
+		assert.deepEqual(entries, [
+			[0, 1], 
+			[1, 2], 
+			[2, 4], 
+			[3, 8]
+		]);
+	});
+});
 describe("Sequence.setsWithSum", () => {
 	it("returns all the sets of elements of the sequence that add up to the given value, sorted in ascending order", () => {
 		const sequence = new Sequence(n => n);

@@ -56,6 +56,15 @@ export class Sequence {
 			term = this.getTerm(index);
 		}
 	}
+	*entriesBelow(upperBound: number, mode: "inclusive" | "exclusive") {
+		let index = 0;
+		let term = this.getTerm(index);
+		while((mode === "inclusive" && term <= upperBound) || (mode === "exclusive" && term < upperBound)) {
+			yield [index, term];
+			index ++;
+			term = this.getTerm(index);
+		}
+	}
 	*termsBetween(lowerBound: number, upperBound: number, lowerMode: "inclusive" | "exclusive" = "inclusive", upperMode: "inclusive" | "exclusive" = "exclusive") {
 		let index = 0;
 		let term = this.getTerm(index);
