@@ -10,6 +10,21 @@ export class Utils {
 		const index = Math.floor(Math.random() * items.length);
 		return index;
 	}
+	static range(min: number, max: number, startMode: "inclusive" | "exclusive" = "inclusive", endMode: "inclusive" | "exclusive" = "inclusive", step: number = 1) {
+		[min, max] = [Math.min(min, max), Math.max(min, max)];
+		step = Math.abs(step);
+
+		if(step === 0) {
+			throw new Error(`Cannot create a range with a step of 0.`);
+		}
+
+		const result = [];
+		const startValue = (startMode === "inclusive") ? min : min + step;
+		for(let value = startValue; (value < max && endMode === "exclusive") || (value <= max && endMode === "inclusive"); value += step) {
+			result.push(value);
+		}
+		return result;
+	}
 
 	static toggleSetElement<T>(set: Set<T>, element: T) {
 		if(set.has(element)) {

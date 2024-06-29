@@ -140,3 +140,21 @@ describe("Utils.combinations", () => {
 		]);
 	});
 });
+describe("Utils.range", () => {
+	it("can return a range of numbers with a given step, including both endpoints", () => {
+		const range = Utils.range(3, 9, "inclusive", "inclusive", 2);
+		assert.sameOrderedMembers(range, [3, 5, 7, 9]);
+	});
+	it("can return a range of numbers with a given step, excluding both endpoints", () => {
+		const range = Utils.range(3, 9, "exclusive", "exclusive", 2);
+		assert.sameOrderedMembers(range, [5, 7]);
+	});
+	it("can return a range of numbers with a given step, including the start but excluding the end", () => {
+		const range = Utils.range(3, 9, "inclusive", "exclusive", 2);
+		assert.sameOrderedMembers(range, [3, 5, 7]);
+	});
+	it("can return a range of numbers with a given step, excluding the start but including the end", () => {
+		const range = Utils.range(3, 9, "exclusive", "inclusive", 2);
+		assert.sameOrderedMembers(range, [5, 7, 9]);
+	});
+});
