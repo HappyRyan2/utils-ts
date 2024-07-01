@@ -29,6 +29,25 @@ export class MathUtils {
 		if(num >= 0) { return num % modulo; }
 		return num + modulo * Math.ceil((-num / modulo));
 	}
+	static modularExponentiate(base: number, exponent: number, modulo: number): number {
+		if(exponent === 0) { return 1; }
+		if(exponent === 1) { return base % modulo; }
+		const largestPowerOf2 = 2 ** Math.floor(Math.log2(exponent));
+		const remainder = exponent - largestPowerOf2;
+		if(remainder === 0) {
+			const numIterations = Math.log2(exponent);
+			let result = base;
+			for(let i = 0; i < numIterations; i ++) {
+				result = (result ** 2) % modulo;
+			}
+			return result;
+		}
+		else {
+			const result1 = MathUtils.modularExponentiate(base, largestPowerOf2, modulo);
+			const result2 = MathUtils.modularExponentiate(base, remainder, modulo);
+			return (result1 * result2) % modulo;
+		}
+	}
 	static gcd(num1: number, num2: number): number {
 		if(num1 === 0 || num2 === 0) { throw new Error("Cannot calculate GCD when either of the inputs are zero."); }
 		[num1, num2] = [Math.max(Math.abs(num1), Math.abs(num2)), Math.min(Math.abs(num1), Math.abs(num2))];

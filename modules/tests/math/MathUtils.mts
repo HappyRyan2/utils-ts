@@ -39,6 +39,24 @@ describe("MathUtils.generalizedModulo", () => {
 		assert.equal(MathUtils.generalizedModulo(-12, 3), 0);
 	});
 });
+describe("MathUtils.modularExponentiate", () => {
+	it("works when the exponent is 0", () => {
+		const result = MathUtils.modularExponentiate(123, 0, 100);
+		assert.equal(result, 1);
+	});
+	it("works when the exponent is 1", () => {
+		const result = MathUtils.modularExponentiate(123, 1, 100);
+		assert.equal(result, 23);
+	});
+	it("works when the exponent is a power of 2", () => {
+		const result = MathUtils.modularExponentiate(3, 16, 10000);
+		assert.equal(result, 6721);
+	});
+	it("works when the exponent is not a power of 2", () => {
+		const result = MathUtils.modularExponentiate(3, 12, 10000);
+		assert.equal(result, 1441);
+	});
+});
 describe("MathUtils.bezoutCoefficients", () => {
 	const testCases = [
 		[5, 7],
