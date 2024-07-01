@@ -74,6 +74,19 @@ describe("Matrix.inverse", () => {
 		]);
 		assert.isNull(matrix.inverse());
 	});
+	it("does not modify the original matrix", () => {
+		const matrix = new Matrix(3, 3, Field.REALS, [
+			[1, 0, 0],
+			[0, 2, 0],
+			[0, 0, 3],
+		]);
+		const inverse = matrix.inverse();
+		assert.deepEqual(matrix.values(), [
+			[1, 0, 0],
+			[0, 2, 0],
+			[0, 0, 3],
+		]);
+	});
 });
 describe("Matrix.swapRows", () => {
 	it("correctly swaps the rows", () => {

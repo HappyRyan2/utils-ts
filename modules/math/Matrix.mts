@@ -102,6 +102,9 @@ export class Matrix<FieldElementType> {
 		}
 		return lines.join("\n");
 	}
+	copy() {
+		return new Matrix(this.width, this.height, this.field, this.values());
+	}
 
 	static identity<FieldElementType>(field: Field<FieldElementType>, size: number) {
 		const result = new Matrix(size, size, field);
@@ -144,14 +147,15 @@ export class Matrix<FieldElementType> {
 	}
 	inverse(): Matrix<FieldElementType> | null {
 		/* Note: this modifies the matrix! (For performance reasons) */
+		const copy = this.copy();
 		const inverse = Matrix.identity(this.field, this.width);
-		for(let i = 0; i < this.height; i ++) {
+		for(let i = 0; i < copy.height; i ++) {
 			/* Swap rows if necessary to make the (i, i) entry nonzero */
-			if(this.get(i, i) === this.field.zero) {
+			if(copy.get(i, i) === copy.field.zero) {
 				let foundNonzeroEntry = false;
-				for(let j = i + 1; j < this.height; j ++) {
-					if(this.get(j, i) !== this.field.zero) {
-						this.swapRows(i, j);
+				for(let j = i + 1; j < copy.height; j ++) {
+					if(copy.get(j, i) !== copy.field.zero) {
+						copy.swapRows(i, j);
 						inverse.swapRows(i, j);
 						foundNonzeroEntry = true;
 						break;
@@ -160,20 +164,20 @@ export class Matrix<FieldElementType> {
 				if(!foundNonzeroEntry) { return null; }
 			}
 
-			inverse.multiplyRow(i, this.field.inverse(this.get(i, i)));
-			this.multiplyRow(i, this.field.inverse(this.get(i, i)));
+			inverse.multiplyRow(i, copy.field.inverse(copy.get(i, i)));
+			copy.multiplyRow(i, copy.field.inverse(copy.get(i, i)));
 
 			/* Add a scaled copy of row i to make all the entries below (i, i) equal to zero */
-			for(let j = i + 1; j < this.height; j ++) {
-				inverse.addScaledRow(i, j, this.field.opposite(this.get(j, i)));
-				this.addScaledRow(i, j, this.field.opposite(this.get(j, i)));
+			for(let j = i + 1; j < copy.height; j ++) {
+				inverse.addScaledRow(i, j, copy.field.opposite(copy.get(j, i)));
+				copy.addScaledRow(i, j, copy.field.opposite(copy.get(j, i)));
 			}
 		}
-		for(let i = this.height - 1; i >= 0; i --) {
+		for(let i = copy.height - 1; i >= 0; i --) {
 			/* Add a scaled copy of row i to make all the entries above (i, i) equal to zero */
 			for(let j = i - 1; j >= 0; j --) {
-				inverse.addScaledRow(i, j, this.field.opposite(this.get(j, i)));
-				this.addScaledRow(i, j, this.field.opposite(this.get(j, i)));
+				inverse.addScaledRow(i, j, copy.field.opposite(copy.get(j, i)));
+				copy.addScaledRow(i, j, copy.field.opposite(copy.get(j, i)));
 			}
 		}
 		return inverse;
