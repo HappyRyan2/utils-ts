@@ -33,7 +33,7 @@ describe("MathUtils.generalizedModulo", () => {
 	});
 	it("returns the result in the range [0, modulo) even if the input is negative", () => {
 		assert.equal(MathUtils.generalizedModulo(-1, 3), 2);
-		
+
 		assert.equal(MathUtils.generalizedModulo(-10, 3), 2);
 		assert.equal(MathUtils.generalizedModulo(-11, 3), 1);
 		assert.equal(MathUtils.generalizedModulo(-12, 3), 0);

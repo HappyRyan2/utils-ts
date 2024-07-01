@@ -6,7 +6,7 @@ export class Rectangle {
 	y: number;
 	width: number;
 	height: number;
-	
+
 	constructor(x: number, y: number, width: number, height: number) {
 		this.x = x;
 		this.y = y;
@@ -78,7 +78,7 @@ export class Rectangle {
 	getCorner(corner: "top-left" | "top-right" | "bottom-left" | "bottom-right") {
 		return new Vector(
 			(corner === "top-left" || corner === "bottom-left") ? this.x : this.x + this.width,
-			(corner === "top-left" || corner === "top-right") ? this.y : this.y + this.height
+			(corner === "top-left" || corner === "top-right") ? this.y : this.y + this.height,
 		);
 	}
 	collisionDirection(collidingRect: Rectangle): Direction {

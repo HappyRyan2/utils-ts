@@ -12,9 +12,9 @@ export class CanvasIO {
 		position: Vector,
 		pressed: boolean,
 		button: "right" | "left" | null
-	}
+	};
 
-	constructor(canvasID = "", canvasType = "fill-parent", parentElement = document.body) {
+	constructor(canvasID = "", parentElement = document.body) {
 		this.canvas = document.createElement("canvas");
 		this.canvas.id = canvasID;
 		this.ctx = this.canvas.getContext("2d")!;
@@ -24,7 +24,7 @@ export class CanvasIO {
 		this.mouse = {
 			position: new Vector(0, 0),
 			pressed: false,
-			button: null
+			button: null,
 		};
 
 		this.attach();
@@ -57,13 +57,13 @@ export class CanvasIO {
 			this.mouse.pressed = true;
 			this.mouse.button = (event.button === 0) ? "left" : "right";
 		});
-		this.canvas.addEventListener("mouseup", (event) => {
+		this.canvas.addEventListener("mouseup", () => {
 			this.mouse.pressed = false;
 			this.mouse.button = null;
 		});
 		this.canvas.addEventListener("mousemove", (event) => {
 			const canvasRect = this.canvas.getBoundingClientRect();
-			this.mouse.position.x = (event.clientX - canvasRect.left) / (canvasRect.right - canvasRect.left) * this.canvas.width
+			this.mouse.position.x = (event.clientX - canvasRect.left) / (canvasRect.right - canvasRect.left) * this.canvas.width;
 			this.mouse.position.y = (event.clientY - canvasRect.top) / (canvasRect.bottom - canvasRect.top) * this.canvas.height;
 		});
 		this.canvas.addEventListener("contextmenu", (event) => {
@@ -107,7 +107,7 @@ export class CanvasIO {
 			"right": 0,
 			"down": 90,
 			"left": 180,
-			"up": 270
+			"up": 270,
 		};
 		this.ctx.save();
 		this.ctx.translate(center.x, center.y);
@@ -174,7 +174,7 @@ export class CanvasIO {
 		for(const perpendicular of [mainPerpendicular, mainPerpendicular.multiply(-1)]) {
 			const gradient = this.ctx.createLinearGradient(
 				x1, y1,
-				x1 + perpendicular.x * totalThickness, y1 + perpendicular.y * totalThickness
+				x1 + perpendicular.x * totalThickness, y1 + perpendicular.y * totalThickness,
 			);
 			gradient.addColorStop(0, innerColor);
 			gradient.addColorStop(innerThickness / totalThickness, innerColor);
@@ -184,20 +184,20 @@ export class CanvasIO {
 				new Vector(x1, y1).add(perpendicular.multiply(-1)),
 				new Vector(x1, y1).add(perpendicular.multiply(totalThickness)),
 				new Vector(x2, y2).add(perpendicular.multiply(totalThickness)),
-				new Vector(x2, y2).add(perpendicular.multiply(-1))
+				new Vector(x2, y2).add(perpendicular.multiply(-1)),
 			);
 		}
 		for(const [endpoint, direction] of [[new Vector(x1, y1), 1], [new Vector(x2, y2), -1]] as const) {
 			const gradient = this.ctx.createRadialGradient(
 				endpoint.x, endpoint.y, innerThickness,
-				endpoint.x, endpoint.y, totalThickness
+				endpoint.x, endpoint.y, totalThickness,
 			);
 			gradient.addColorStop(0, innerColor);
 			gradient.addColorStop(1, outerColor);
 			this.ctx.fillStyle = gradient;
 			this.ctx.beginPath();
 			this.ctx.arc(
-				endpoint.x, endpoint.y, totalThickness, 
+				endpoint.x, endpoint.y, totalThickness,
 				Math.atan2(mainPerpendicular.y * direction, mainPerpendicular.x * direction),
 				Math.atan2(-mainPerpendicular.y * direction, -mainPerpendicular.x * direction),
 			);

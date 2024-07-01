@@ -38,11 +38,11 @@ export class Grid<T> {
 	set(x: number, y: number, value: T): Grid<T>;
 	set(arg1: number | Vector, arg2: number | T, arg3?: T) {
 		if(typeof arg1 === "number") {
-			const [x, y, value] = [...arguments] as [number, number, T];
+			const [x, y, value] = [arg1, arg2, arg3] as [number, number, T];
 			this.set(new Vector(x, y), value);
 		}
 		else {
-			const [position, value] = [...arguments] as [Vector, T];
+			const [position, value] = [arg1, arg2] as [Vector, T];
 			if(position.x % 1 !== 0 || position.y % 1 !== 0) {
 				throw new Error(`Cannot set value in grid; expected the coordinates to be integers, but instead got ${position.toString()}`);
 			}
@@ -91,7 +91,7 @@ export class Grid<T> {
 		}
 		return grid;
 	}
-	
+
 	boundingBox() {
 		const positions = [...this.entries()]
 			.filter(([value, position]) => value !== this.defaultValue)

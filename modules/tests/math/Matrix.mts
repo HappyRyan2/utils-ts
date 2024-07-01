@@ -80,7 +80,7 @@ describe("Matrix.inverse", () => {
 			[0, 2, 0],
 			[0, 0, 3],
 		]);
-		const inverse = matrix.inverse();
+		matrix.inverse();
 		assert.deepEqual(matrix.values(), [
 			[1, 0, 0],
 			[0, 2, 0],

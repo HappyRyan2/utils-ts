@@ -83,7 +83,7 @@ describe("Utils.combinations", () => {
 			[2, 3],
 			[2, 4],
 
-			[3, 4]
+			[3, 4],
 		]);
 	});
 	it("can return all the multisets of items, limited by the number of copies in the given list", () => {
@@ -93,12 +93,12 @@ describe("Utils.combinations", () => {
 			[1, 2],
 			[1, 3],
 			[1, 4],
-	
+
 			[2, 2],
 			[2, 3],
 			[2, 4],
-	
-			[3, 4]
+
+			[3, 4],
 		]);
 	});
 	it("can return all the multisets of items, not limited by the number of copies in the given list", () => {
@@ -109,15 +109,15 @@ describe("Utils.combinations", () => {
 			[1, 2],
 			[1, 3],
 			[1, 4],
-	
+
 			[2, 2],
 			[2, 3],
 			[2, 4],
-	
+
 			[3, 3],
 			[3, 4],
 
-			[4, 4]
+			[4, 4],
 		]);
 	});
 	it("can return all the sets of distinct items with size in a given range", () => {
@@ -136,7 +136,7 @@ describe("Utils.combinations", () => {
 			[2, 3],
 			[2, 4],
 
-			[3, 4]
+			[3, 4],
 		]);
 	});
 });

@@ -7,7 +7,7 @@ describe("Tree.leaves", () => {
 		const ALPHABET = ["A", "B", "C"];
 		const getChildren = (str: string) => {
 			if(str.length < 3) {
-				return ALPHABET.map(char => str + char)
+				return ALPHABET.map(char => str + char);
 			}
 			else { return []; }
 		};
@@ -38,7 +38,7 @@ describe("Tree.nodesWithAncestors", () => {
 		const ALPHABET = ["A", "B", "C"];
 		const getChildren = (str: string) => {
 			if(str.length < 3) {
-				return ALPHABET.map(char => str + char)
+				return ALPHABET.map(char => str + char);
 			}
 			else { return []; }
 		};
@@ -60,7 +60,7 @@ describe("Tree.nodesWithAncestors", () => {
 			{ node: "AC", ancestors: ["A", "AC"] },
 			{ node: "ACA", ancestors: ["A", "AC", "ACA"] },
 			{ node: "ACB", ancestors: ["A", "AC", "ACB"] },
-			{ node: "ACC", ancestors: ["A", "AC", "ACC"] }
+			{ node: "ACC", ancestors: ["A", "AC", "ACC"] },
 		]);
 	});
 });

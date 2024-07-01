@@ -35,11 +35,11 @@ export class Tree {
 				stack.pop();
 			}
 			else {
-				stack.push({ 
-					value: nextChild.value, 
-					generator: childrenGenerator(nextChild.value), 
+				stack.push({
+					value: nextChild.value,
+					generator: childrenGenerator(nextChild.value),
 					ancestors: [...currentItem.ancestors, nextChild.value],
-					yielded: false
+					yielded: false,
 				});
 			}
 		}

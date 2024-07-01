@@ -1,6 +1,4 @@
-import { assert } from "chai";
 import { Field } from "./Field.mjs";
-import { describe, it } from "mocha";
 
 export class Matrix<FieldElementType> {
 	width: number;

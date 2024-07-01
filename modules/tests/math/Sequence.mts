@@ -45,21 +45,21 @@ describe("Sequence.entriesBelow", () => {
 		const sequence = new Sequence(n => 2 ** n); // 1, 2, 4, 8, ...
 		const entries = [...sequence.entriesBelow(16, "inclusive")];
 		assert.deepEqual(entries, [
-			[0, 1], 
-			[1, 2], 
-			[2, 4], 
+			[0, 1],
+			[1, 2],
+			[2, 4],
 			[3, 8],
-			[4, 16]
+			[4, 16],
 		]);
 	});
 	it("can yield all the terms and indices such that the term is strictly less than the given maximum", () => {
 		const sequence = new Sequence(n => 2 ** n); // 1, 2, 4, 8, ...
 		const entries = [...sequence.entriesBelow(16, "exclusive")];
 		assert.deepEqual(entries, [
-			[0, 1], 
-			[1, 2], 
-			[2, 4], 
-			[3, 8]
+			[0, 1],
+			[1, 2],
+			[2, 4],
+			[3, 8],
 		]);
 	});
 });
@@ -70,7 +70,7 @@ describe("Sequence.entriesBetween", () => {
 		assert.deepEqual(entries, [
 			[3, 9],
 			[4, 16],
-			[5, 25]
+			[5, 25],
 		]);
 	});
 	it("works when lowerMode is inclusive and upperMode is exclusive", () => {
@@ -78,7 +78,7 @@ describe("Sequence.entriesBetween", () => {
 		const entries = [...sequence.entriesBetween(9, 25, "inclusive", "exclusive")];
 		assert.deepEqual(entries, [
 			[3, 9],
-			[4, 16]
+			[4, 16],
 		]);
 	});
 	it("works when lowerMode is exclusive and upperMode is inclusive", () => {
@@ -93,7 +93,7 @@ describe("Sequence.entriesBetween", () => {
 		const sequence = new Sequence(n => n ** 2); // 0, 1, 4, 9, ...
 		const entries = [...sequence.entriesBetween(9, 25, "exclusive", "exclusive")];
 		assert.deepEqual(entries, [
-			[4, 16]
+			[4, 16],
 		]);
 	});
 });
@@ -111,7 +111,7 @@ describe("Sequence.setsWithSum", () => {
 		const sets = [...Sequence.POSITIVE_INTEGERS.setsWithSum(4)];
 		assert.sameDeepMembers(sets, [
 			[4],
-			[1, 3]
+			[1, 3],
 		]);
 	});
 });
@@ -122,7 +122,7 @@ describe("Sequence.multisetsWithSum", () => {
 		assert.sameDeepMembers(sets, [
 			[1, 5],
 			[2, 4],
-			[3, 3]
+			[3, 3],
 		]);
 	});
 	it("returns multisets of any size when the setSize parameter is omitted", () => {
@@ -132,7 +132,7 @@ describe("Sequence.multisetsWithSum", () => {
 			[1, 3],
 			[2, 2],
 			[1, 1, 2],
-			[1, 1, 1, 1]
+			[1, 1, 1, 1],
 		]);
 	});
 });

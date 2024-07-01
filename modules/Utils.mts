@@ -15,7 +15,7 @@ export class Utils {
 		step = Math.abs(step);
 
 		if(step === 0) {
-			throw new Error(`Cannot create a range with a step of 0.`);
+			throw new Error("Cannot create a range with a step of 0.");
 		}
 
 		const result = [];
@@ -60,24 +60,24 @@ export class Utils {
 		}
 	}
 	static combinations<T>(
-		items: T[] | Set<T>, 
-		size: number, 
-		allowRepetition: DuplicateMode, 
+		items: T[] | Set<T>,
+		size: number,
+		allowRepetition: DuplicateMode,
 		orderMode: OrderMode
 	): Generator<T[]>;
 	static combinations<T>(
-		items: T[] | Set<T>, 
-		minSize: number, 
-		maxSize: number, 
-		allowRepetition: DuplicateMode, 
+		items: T[] | Set<T>,
+		minSize: number,
+		maxSize: number,
+		allowRepetition: DuplicateMode,
 		orderMode: OrderMode
 	): Generator<T[]>;
 	static *combinations<T>(
 		arg0: T[] | Set<T>,
-		arg1: number, 
+		arg1: number,
 		arg2: number | DuplicateMode,
 		arg3: OrderMode | DuplicateMode,
-		arg4?: OrderMode
+		arg4?: OrderMode,
 	): Generator<T[]> {
 		if(typeof arg2 === "number") {
 			const [items, minSize, maxSize, allowRepetition, orderMode] = [[...arg0], arg1, arg2, arg3, arg4] as [T[], number, number, DuplicateMode, OrderMode];

@@ -1,5 +1,4 @@
 import { Direction } from "./Direction.mjs";
-import { Utils } from "../Utils.mjs";
 import { MathUtils } from "../math/MathUtils.mjs";
 
 export class Vector {
@@ -15,7 +14,7 @@ export class Vector {
 	}
 	static parse(str: unknown) {
 		if(!(typeof str === "string")) {
-			throw new Error(`Cannot parse vector; input was not a string.`);
+			throw new Error("Cannot parse vector; input was not a string.");
 		}
 		const PARSE_ORDERED_PAIR = /\((-?\d+(?:.\d+)?), ?(-?\d+(?:.\d+)?)\)/;
 		const results = str.match(PARSE_ORDERED_PAIR);

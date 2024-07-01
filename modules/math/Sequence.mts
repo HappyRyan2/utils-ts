@@ -45,14 +45,14 @@ export class Sequence {
 		}
 	}
 	slice(startIndex: number, endIndex: number, startMode: "inclusive" | "exclusive" = "inclusive", endMode: "inclusive" | "exclusive" = "exclusive") {
-		let result = [];
+		const result = [];
 		for(let index = (startMode === "inclusive") ? startIndex : startIndex + 1; (endMode === "inclusive") ? (index <= endIndex) : (index < endIndex); index ++) {
 			result.push(this.getTerm(index));
 		}
 		return result;
 	}
 
-	
+
 	static POSITIVE_INTEGERS = new Sequence(n => n + 1);
 	static PRIMES = new Sequence(function*() {
 		let num = 2;
@@ -65,7 +65,7 @@ export class Sequence {
 	});
 
 
-	/* 
+	/*
 	-----------------------------------------------
 	Methods that assume the sequence is increasing:
 	-----------------------------------------------
@@ -94,7 +94,7 @@ export class Sequence {
 		}
 	}
 
-	/* 
+	/*
 	------------------------------------------------------------
 	Methods that assume the sequence is positive and increasing:
 	------------------------------------------------------------
