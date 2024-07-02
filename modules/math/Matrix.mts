@@ -130,6 +130,12 @@ export class Matrix<FieldElementType> {
 		}
 		return result;
 	}
+	subtract(matrix: Matrix<FieldElementType>) {
+		for(const [row, column, value] of matrix.nonzeroEntries()) {
+			this.set(row, column, this.field.subtract(this.get(row, column), value));
+		}
+		return this;
+	}
 
 	swapRows(rowIndex1: number, rowIndex2: number) {
 		// Only swaps indices where one of the rows has a nonzero entry for performance reasons.
@@ -173,28 +179,6 @@ export class Matrix<FieldElementType> {
 			this.swapRows(rowOperation.rowIndex1, rowOperation.rowIndex2);
 		}
 	}
-	inverse(): Matrix<FieldElementType> | null {
-		const inverse = Matrix.identity(this.field, this.width);
-		const rowOperations = [...this.gaussianElimination(true)];
-		if(rowOperations.length === 0) {
-			/* already in reduced row eschelon form */
-			return this.equals(Matrix.identity(this.field, this.width)) ? this.copy() : null;
-		}
-		if(rowOperations.length !== 0 && !rowOperations[rowOperations.length - 1].after.equals(Matrix.identity(this.field, this.width))) {
-			return null;
-		}
-		for(const rowOperation of rowOperations) {
-			inverse.applyRowOperation(rowOperation);
-		}
-		return inverse;
-	}
-	subtract(matrix: Matrix<FieldElementType>) {
-		for(const [row, column, value] of matrix.nonzeroEntries()) {
-			this.set(row, column, this.field.subtract(this.get(row, column), value));
-		}
-		return this;
-	}
-
 	*gaussianElimination(reduced: boolean) {
 		yield* new GaussianElimination(this.copy()).steps(reduced);
 	}
@@ -216,6 +200,21 @@ export class Matrix<FieldElementType> {
 			}
 		}
 		return 0;
+	}
+	inverse(): Matrix<FieldElementType> | null {
+		const inverse = Matrix.identity(this.field, this.width);
+		const rowOperations = [...this.gaussianElimination(true)];
+		if(rowOperations.length === 0) {
+			/* already in reduced row eschelon form */
+			return this.equals(Matrix.identity(this.field, this.width)) ? this.copy() : null;
+		}
+		if(rowOperations.length !== 0 && !rowOperations[rowOperations.length - 1].after.equals(Matrix.identity(this.field, this.width))) {
+			return null;
+		}
+		for(const rowOperation of rowOperations) {
+			inverse.applyRowOperation(rowOperation);
+		}
+		return inverse;
 	}
 }
 
