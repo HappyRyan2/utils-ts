@@ -167,3 +167,62 @@ describe("Matrix.rowEchelonForm", () => {
 		]);
 	});
 });
+describe("Matrix.rank", () => {
+	it("returns 0 for the zero matrix", () => {
+		const matrix = new Matrix(3, 3, Field.REALS, [
+			[0, 0, 0],
+			[0, 0, 0],
+			[0, 0, 0],
+		]);
+		const rank = matrix.rank();
+		assert.equal(rank, 0);
+	});
+	it("returns 4 for the 4-by-4 identity matrix", () => {
+		const matrix = Matrix.identity(Field.REALS, 4);
+		const rank = matrix.rank();
+		assert.equal(rank, 4);
+	});
+	it("returns 3 for a 3-by-3 invertible matrix", () => {
+		const matrix = new Matrix(3, 3, Field.REALS, [
+			[0, 2, 0],
+			[0, 0, 3],
+			[1, 0, 0],
+		]);
+		const rank = matrix.rank();
+		assert.equal(rank, 3);
+	});
+	it("returns 2 for a 3x3 matrix where exactly two of the columns are scalar multiples of each other", () => {
+		const matrix = new Matrix(3, 3, Field.REALS, [
+			[1, 2, 10],
+			[3, 4, 30],
+			[5, 6, 50],
+		]);
+		const rank = matrix.rank();
+		assert.equal(rank, 2);
+	});
+	it("returns 1 for a 3x3 matrix where all the columns are scalar multiples of each other", () => {
+		const matrix = new Matrix(3, 3, Field.REALS, [
+			[1, 10, 100],
+			[2, 20, 200],
+			[3, 30, 300],
+		]);
+		const rank = matrix.rank();
+		assert.equal(rank, 1);
+	});
+	it("returns 2 for a 2x3 matrix where the two rows are not scalar multiples of each other", () => {
+		const matrix = new Matrix(3, 2, Field.REALS, [
+			[1, 2, 4],
+			[3, 0, 0],
+		]);
+		const rank = matrix.rank();
+		assert.equal(rank, 2);
+	});
+	it("returns 0 for a non-square matrix with all zero entries", () => {
+		const matrix = new Matrix(4, 3, Field.REALS, [
+			[0, 0, 0],
+			[0, 0, 0],
+		]);
+		const rank = matrix.rank();
+		assert.equal(rank, 0);
+	});
+});
