@@ -173,39 +173,17 @@ export class Matrix<FieldElementType> {
 		}
 	}
 	inverse(): Matrix<FieldElementType> | null {
-		/* Note: this modifies the matrix! (For performance reasons) */
-		const copy = this.copy();
 		const inverse = Matrix.identity(this.field, this.width);
-		for(let i = 0; i < copy.height; i ++) {
-			/* Swap rows if necessary to make the (i, i) entry nonzero */
-			if(copy.get(i, i) === copy.field.zero) {
-				let foundNonzeroEntry = false;
-				for(let j = i + 1; j < copy.height; j ++) {
-					if(copy.get(j, i) !== copy.field.zero) {
-						copy.swapRows(i, j);
-						inverse.swapRows(i, j);
-						foundNonzeroEntry = true;
-						break;
-					}
-				}
-				if(!foundNonzeroEntry) { return null; }
-			}
-
-			inverse.multiplyRow(i, copy.field.inverse(copy.get(i, i)));
-			copy.multiplyRow(i, copy.field.inverse(copy.get(i, i)));
-
-			/* Add a scaled copy of row i to make all the entries below (i, i) equal to zero */
-			for(let j = i + 1; j < copy.height; j ++) {
-				inverse.addScaledRow(i, j, copy.field.opposite(copy.get(j, i)));
-				copy.addScaledRow(i, j, copy.field.opposite(copy.get(j, i)));
-			}
+		const rowOperations = [...this.gaussianElimination(true)];
+		if(rowOperations.length === 0) {
+			/* already in reduced row eschelon form */
+			return this.equals(Matrix.identity(this.field, this.width)) ? this.copy() : null;
 		}
-		for(let i = copy.height - 1; i >= 0; i --) {
-			/* Add a scaled copy of row i to make all the entries above (i, i) equal to zero */
-			for(let j = i - 1; j >= 0; j --) {
-				inverse.addScaledRow(i, j, copy.field.opposite(copy.get(j, i)));
-				copy.addScaledRow(i, j, copy.field.opposite(copy.get(j, i)));
-			}
+		if(rowOperations.length !== 0 && !rowOperations[rowOperations.length - 1].after.equals(Matrix.identity(this.field, this.width))) {
+			return null;
+		}
+		for(const rowOperation of rowOperations) {
+			inverse.applyRowOperation(rowOperation);
 		}
 		return inverse;
 	}
