@@ -103,6 +103,19 @@ export class Matrix<FieldElementType> {
 	copy() {
 		return new Matrix(this.width, this.height, this.field, this.values());
 	}
+	equals(matrix: Matrix<FieldElementType>) {
+		if(matrix.width !== this.width || matrix.height !== this.height) {
+			return false;
+		}
+		for(let row = 0; row < this.height; row ++) {
+			for(let column = 0; column < this.width; column ++) {
+				if(this.get(row, column) !== matrix.get(row, column)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
 	static identity<FieldElementType>(field: Field<FieldElementType>, size: number) {
 		const result = new Matrix(size, size, field);
