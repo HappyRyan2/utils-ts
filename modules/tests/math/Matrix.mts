@@ -141,3 +141,29 @@ describe("Matrix.toString", () => {
 		assert.equal(matrix.toString(), "1      2 3\n400000 5 6\n7      8 9");
 	});
 });
+describe("Matrix.rowEchelonForm", () => {
+	it("can correctly calculate the reduced row echelon form", () => {
+		const matrix = new Matrix(3, 3, Field.REALS, [
+			[0, 2, 0],
+			[0, 0, 3],
+			[1, 0, 0],
+		]);
+		const rref = matrix.rowEchelonForm(true);
+		assert.deepEqual(rref.values(), [
+			[1, 0, 0],
+			[0, 1, 0],
+			[0, 0, 1],
+		]);
+	});
+	it("works for a matrix that is wider than it is tall", () => {
+		const matrix = new Matrix(3, 2, Field.REALS, [
+			[1, 2, 4],
+			[3, 0, 0],
+		]);
+		const rref = matrix.rowEchelonForm(true);
+		assert.deepEqual(rref.values(), [
+			[1, 0, 0],
+			[0, 1, 2],
+		]);
+	});
+});

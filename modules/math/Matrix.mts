@@ -197,6 +197,16 @@ export class Matrix<FieldElementType> {
 	*gaussianElimination(reduced: boolean) {
 		yield* new GaussianElimination(this.copy()).steps(reduced);
 	}
+
+	rowEchelonForm(reduced: boolean) {
+		const steps = [...this.gaussianElimination(reduced)];
+		if(steps.length === 0) {
+			return this;
+		}
+		else {
+			return steps[steps.length - 1].after;
+		}
+	}
 }
 
 class GaussianElimination<T> {
