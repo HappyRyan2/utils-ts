@@ -215,4 +215,89 @@ export class Matrix<FieldElementType> {
 		}
 		return this;
 	}
+
+	*gaussianElimination(reduced: boolean) {
+		yield* new GaussianElimination(this.copy()).steps(reduced);
+	}
+}
+
+class GaussianElimination<T> {
+	matrix: Matrix<T>;
+	constructor(matrix: Matrix<T>) {
+		this.matrix = matrix;
+	}
+
+	*swapRows(rowIndex1: number, rowIndex2: number): Generator<SwapOperation<T>> {
+		if(rowIndex1 === rowIndex2) { return; }
+		const beforeSwap = this.matrix.copy();
+		this.matrix.swapRows(rowIndex1, rowIndex2);
+		yield {
+			type: "swap",
+			rowIndex1, rowIndex2,
+			before: beforeSwap.copy(),
+			after: this.matrix.copy(),
+		};
+	}
+	*addScaledRow(sourceRowIndex: number, destinationRowIndex: number, scalar: T): Generator<ScaledAddOperation<T>> {
+		if(scalar === this.matrix.field.zero) { return; }
+		const beforeAdd = this.matrix.copy();
+		this.matrix.addScaledRow(sourceRowIndex, destinationRowIndex, scalar);
+		yield {
+			type: "add",
+			sourceRowIndex, destinationRowIndex, scalar,
+			before: beforeAdd.copy(),
+			after: this.matrix.copy(),
+		};
+	}
+	*multiplyRow(rowIndex: number, scalar: T): Generator<MultiplyOperation<T>> {
+		if(scalar === this.matrix.field.one) { return; }
+		const beforeMultiplication = this.matrix.copy();
+		this.matrix.multiplyRow(rowIndex, scalar);
+		yield {
+			type: "multiply",
+			rowIndex, scalar,
+			before: beforeMultiplication.copy(),
+			after: this.matrix.copy(),
+		};
+	}
+
+	*steps(reduced: boolean = true): Generator<RowOperation<T>> {
+		const nonzeroColumns = [];
+		let pivotRow = 0;
+		for(let i = 0; i < this.matrix.width; i ++) {
+			/* Swap rows if necessary to move any nonzero entry to the pivot row. */
+			let foundNonzeroEntry = false;
+			for(let j = pivotRow; j < this.matrix.height; j ++) {
+				if(this.matrix.get(j, i) !== this.matrix.field.zero) {
+					yield* this.swapRows(pivotRow, j);
+					foundNonzeroEntry = true;
+					break;
+				}
+			}
+			if(foundNonzeroEntry) {
+				// yield* this.multiplyRow(pivotRow, this.matrix.field.inverse(this.matrix.get(pivotRow, i)));
+
+				/* Add a scaled copy of row i to make all the entries below the pivot row equal to 0 */
+				for(let j = pivotRow + 1; j < this.matrix.height; j ++) {
+					const scalar = this.matrix.field.divide(this.matrix.field.opposite(this.matrix.get(j, i)), this.matrix.get(pivotRow, i));
+					yield* this.addScaledRow(i, j, scalar);
+				}
+				nonzeroColumns.push({ column: i, pivotRow: pivotRow });
+				pivotRow ++;
+			}
+		}
+		if(reduced) {
+			for(const { column, pivotRow } of [...nonzeroColumns].reverse()) {
+				/* Multiply row by a scalar to make the leftmost nonzero entry 1. */
+				yield* this.multiplyRow(pivotRow, this.matrix.field.inverse(this.matrix.get(pivotRow, column)));
+
+				/* Add a scaled copy to rows above to make the entries above equal to 0. */
+				for(let rowAbove = pivotRow - 1; rowAbove >= 0; rowAbove --) {
+					const entryAbove = this.matrix.get(rowAbove, column);
+					const scalar = this.matrix.field.opposite(entryAbove);
+					yield* this.addScaledRow(pivotRow, rowAbove, scalar);
+				}
+			}
+		}
+	}
 }
