@@ -78,7 +78,7 @@ export class Matrix<FieldElementType> {
 		const result: FieldElementType[][] = [];
 		for(let rowIndex = 0; rowIndex < this.height; rowIndex ++) {
 			result[rowIndex] = [];
-			for(let columnIndex = 0; columnIndex < this.height; columnIndex ++) {
+			for(let columnIndex = 0; columnIndex < this.width; columnIndex ++) {
 				result[rowIndex][columnIndex] = this.get(rowIndex, columnIndex);
 			}
 		}
