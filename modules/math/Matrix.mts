@@ -1,5 +1,10 @@
 import { Field } from "./Field.mjs";
 
+type SwapOperation<T> = { type: "swap", rowIndex1: number, rowIndex2: number, before: Matrix<T>, after: Matrix<T> };
+type ScaledAddOperation<T> = { type: "add", sourceRowIndex: number, destinationRowIndex: number, before: Matrix<T>, after: Matrix<T>, scalar: T };
+type MultiplyOperation<T> = { type: "multiply", rowIndex: number, before: Matrix<T>, after: Matrix<T>, scalar: T };
+type RowOperation<T> = SwapOperation<T> | ScaledAddOperation<T> | MultiplyOperation<T>;
+
 export class Matrix<FieldElementType> {
 	width: number;
 	height: number;
@@ -154,6 +159,17 @@ export class Matrix<FieldElementType> {
 		for(const [index, entry] of (this.rows.get(sourceRowIndex) ?? new Map<number, FieldElementType>()).entries()) {
 			const newValue = this.field.add(this.field.multiply(entry, scalar), this.get(destinationRowIndex, index));
 			this.set(destinationRowIndex, index, newValue);
+		}
+	}
+	applyRowOperation(rowOperation: RowOperation<FieldElementType>) {
+		if(rowOperation.type === "add") {
+			this.addScaledRow(rowOperation.sourceRowIndex, rowOperation.destinationRowIndex, rowOperation.scalar);
+		}
+		else if(rowOperation.type === "multiply") {
+			this.multiplyRow(rowOperation.rowIndex, rowOperation.scalar);
+		}
+		else if(rowOperation.type === "swap") {
+			this.swapRows(rowOperation.rowIndex1, rowOperation.rowIndex2);
 		}
 	}
 	inverse(): Matrix<FieldElementType> | null {
