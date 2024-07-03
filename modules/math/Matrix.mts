@@ -201,6 +201,9 @@ export class Matrix<FieldElementType> {
 		}
 		return 0;
 	}
+	nullity() {
+		return this.width - this.rank();
+	}
 	inverse(): Matrix<FieldElementType> | null {
 		const inverse = Matrix.identity(this.field, this.width);
 		const rowOperations = [...this.gaussianElimination(true)];
