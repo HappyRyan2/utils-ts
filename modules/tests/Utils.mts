@@ -158,3 +158,32 @@ describe("Utils.range", () => {
 		assert.sameOrderedMembers(range, [5, 7, 9]);
 	});
 });
+describe("Utils.memoize", () => {
+	it("returns a memoized version of the given function", () => {
+		let timesRun = 0;
+		const add = (a: number, b: number) => {
+			timesRun ++;
+			return a + b;
+		};
+		const memoizedAdd = Utils.memoize(add);
+		assert.equal(memoizedAdd(1, 2), 3);
+		assert.equal(memoizedAdd(1, 2), 3);
+		assert.equal(memoizedAdd(1, 2), 3);
+		assert.equal(timesRun, 1);
+	});
+	it("can first convert the arguments to a standard form", () => {
+		let timesRun = 0;
+		const modularAdd = (a: number, b: number) => {
+			timesRun ++;
+			return (a + b) % 10;
+		};
+		const standardizeArgs = (a: number, b: number) => [a % 10, b % 10] as [number, number];
+
+		const memoized = Utils.memoize(modularAdd, standardizeArgs);
+		assert.equal(memoized(1, 2), 3);
+		assert.equal(memoized(1001, 2), 3);
+		assert.equal(memoized(1, 1002), 3);
+		assert.equal(memoized(3001, 4002), 3);
+		assert.equal(timesRun, 1);
+	});
+});

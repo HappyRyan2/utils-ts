@@ -105,4 +105,21 @@ export class Utils {
 			}
 		}
 	}
+
+	static memoize<ArgsType extends Array<unknown>, ReturnType>(
+		func: (...args: ArgsType) => ReturnType,
+		standardizeArgs: ((...args: ArgsType) => ArgsType) = (...args) => args,
+	) {
+		const cachedResults = new Map<string, ReturnType>();
+		return function(...args: ArgsType) {
+			args = standardizeArgs(...args);
+			const argsString = args.join("");
+			if(cachedResults.has(argsString)) {
+				return cachedResults.get(argsString) as ReturnType;
+			}
+			const result = func(...args);
+			cachedResults.set(argsString, result);
+			return result;
+		};
+	}
 }
