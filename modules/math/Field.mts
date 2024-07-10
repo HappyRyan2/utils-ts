@@ -1,4 +1,5 @@
 import { MathUtils } from "./MathUtils.mjs";
+import { Rational } from "./Rational.mjs";
 
 export class Field<ElementType> {
 	zero: ElementType;
@@ -66,5 +67,13 @@ export class Field<ElementType> {
 		(a, b) => a * b,
 		x => -x,
 		x => 1/x,
+	);
+	static RATIONALS = new Field<Rational>(
+		new Rational(0, 1),
+		new Rational(1, 1),
+		(a, b) => a.add(b),
+		(a, b) => a.multiply(b),
+		x => x.opposite(),
+		x => x.inverse(),
 	);
 }
