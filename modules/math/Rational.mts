@@ -37,4 +37,10 @@ export class Rational {
 		}
 		return new Rational(this.denominator, this.numerator);
 	}
+	subtract(rational: Rational) {
+		return this.add(rational.opposite());
+	}
+	divide(rational: Rational) {
+		return this.multiply(rational.inverse());
+	}
 }
