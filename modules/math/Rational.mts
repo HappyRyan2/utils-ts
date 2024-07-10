@@ -22,6 +22,10 @@ export class Rational {
 		}
 	}
 
+	equals(rational: Rational) {
+		return this.numerator * rational.denominator === this.denominator * rational.numerator;
+	}
+
 	add(rational: Rational) {
 		return new Rational(this.numerator * rational.denominator + this.denominator * rational.numerator, this.denominator * rational.denominator);
 	}
