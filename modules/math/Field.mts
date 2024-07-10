@@ -45,6 +45,13 @@ export class Field<ElementType> {
 		}
 		return result;
 	}
+	product(...elements: ElementType[]) {
+		let result = this.one;
+		for(const element of elements) {
+			result = this.multiply(result, element);
+		}
+		return result;
+	}
 
 	static integersModulo(modulo: number) {
 		if(!MathUtils.isPrime(modulo)) {
