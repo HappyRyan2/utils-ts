@@ -4,7 +4,7 @@ export class Rational {
 	readonly numerator: number;
 	readonly denominator: number;
 
-	constructor(numerator: number, denominator: number) {
+	constructor(numerator: number, denominator: number = 1) {
 		if(numerator % 1 !== 0 || denominator % 1 !== 0) {
 			throw new Error(`When constructing a rational number, expected numerator and denominator to be integers, but instead recieved ${numerator} and ${denominator}.`);
 		}
