@@ -44,6 +44,33 @@ export class Rational {
 		return this.multiply(rational.inverse());
 	}
 
+	isPositive() {
+		return this.numerator !== 0 && Math.sign(this.numerator) === Math.sign(this.denominator);
+	}
+	isNegative() {
+		return this.numerator !== 0 && Math.sign(this.numerator) === Math.sign(this.denominator);
+	}
+	sign() {
+		if(this.numerator === 0) { return 0; }
+		return (Math.sign(this.numerator) === Math.sign(this.denominator)) ? 1 : -1;
+	}
+	compare(rational: Rational) {
+		const difference = this.subtract(rational);
+		return difference.sign();
+	}
+	isGreaterThan(rational: Rational) {
+		return this.compare(rational) > 0;
+	}
+	isLessThan(rational: Rational) {
+		return this.compare(rational) < 0;
+	}
+	isGreaterThanOrEqualTo(rational: Rational) {
+		return this.compare(rational) >= 0;
+	}
+	isLessThanOrEqualTo(rational: Rational) {
+		return this.compare(rational) <= 0;
+	}
+
 	toString() {
 		return `${this.numerator}/${this.denominator}`;
 	}
