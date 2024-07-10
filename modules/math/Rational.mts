@@ -43,4 +43,8 @@ export class Rational {
 	divide(rational: Rational) {
 		return this.multiply(rational.inverse());
 	}
+
+	toString() {
+		return `${this.numerator}/${this.denominator}`;
+	}
 }
