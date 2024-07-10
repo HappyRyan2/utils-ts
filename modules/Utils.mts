@@ -1,6 +1,10 @@
 type DuplicateMode = "all-distinct" | "allow-duplicates" | "unlimited-duplicates";
 type OrderMode = "tuples" | "sets";
 
+type CartesianProductType<T extends unknown[][]> = {
+	[P in keyof T]: T[P] extends Array<infer U>? U: never
+};
+
 export class Utils {
 	static randomItem<T>(items: Array<T>) {
 		const index = Math.floor(Math.random() * items.length);
@@ -32,6 +36,19 @@ export class Utils {
 		}
 		else {
 			set.add(element);
+		}
+	}
+	static *cartesianProduct<T extends unknown[][]>(...sets: T): Generator<CartesianProductType<T>> {
+		if(sets.length > 0) {
+			for(const firstItem of sets[0]) {
+				const otherSets = sets.slice(1);
+				for(const tuple of Utils.cartesianProduct(...otherSets)) {
+					yield [firstItem, ...tuple] as CartesianProductType<T>;
+				}
+			}
+		}
+		else {
+			yield [] as CartesianProductType<T>;
 		}
 	}
 

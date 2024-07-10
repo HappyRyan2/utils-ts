@@ -2,6 +2,17 @@ import { describe, it } from "mocha";
 import { Utils } from "../Utils.mjs";
 import { assert } from "chai";
 
+describe("Utils.cartesianProduct", () => {
+	it("returns the set of all ordered tuples that can be obtained by choosing one element from each set", () => {
+		const pairs = [...Utils.cartesianProduct([1, 2], ["a", "b"])];
+		assert.sameDeepMembers(pairs, [
+			[1, "a"],
+			[1, "b"],
+			[2, "a"],
+			[2, "b"],
+		]);
+	});
+});
 describe("Utils.combinations", () => {
 	it("can return all the tuples of distinct items", () => {
 		const items = [1, 2, 2, 3, 4];
