@@ -78,4 +78,7 @@ export class Rational {
 	toString() {
 		return `${this.numerator}/${this.denominator}`;
 	}
+	toNumber() {
+		return this.numerator / this.denominator;
+	}
 }
