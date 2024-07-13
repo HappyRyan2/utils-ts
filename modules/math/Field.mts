@@ -1,3 +1,4 @@
+import { BigRational } from "./BigRational.mjs";
 import { MathUtils } from "./MathUtils.mjs";
 import { Rational } from "./Rational.mjs";
 
@@ -78,6 +79,14 @@ export class Field<ElementType> {
 	static RATIONALS = new Field<Rational>(
 		new Rational(0, 1),
 		new Rational(1, 1),
+		(a, b) => a.add(b),
+		(a, b) => a.multiply(b),
+		x => x.opposite(),
+		x => x.inverse(),
+	);
+	static BIG_RATIONALS = new Field<BigRational>(
+		new BigRational(0, 1),
+		new BigRational(1, 1),
 		(a, b) => a.add(b),
 		(a, b) => a.multiply(b),
 		x => x.opposite(),
