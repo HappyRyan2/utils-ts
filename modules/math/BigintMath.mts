@@ -20,6 +20,12 @@ export class BigintMath {
 	static abs(value: bigint) {
 		return (value < 0n) ? -value : value;
 	}
+	static sign(value: bigint) {
+		if(value === 0n) {
+			return 0n;
+		}
+		return (value > 0) ? 1n : -1n;
+	}
 	static gcd(num1: bigint, num2: bigint): bigint {
 		if(num1 === 0n || num2 === 0n) { throw new Error("Cannot calculate GCD when either of the inputs are zero."); }
 		[num1, num2] = [BigintMath.max(BigintMath.abs(num1), BigintMath.abs(num2)), BigintMath.min(BigintMath.abs(num1), BigintMath.abs(num2))];
