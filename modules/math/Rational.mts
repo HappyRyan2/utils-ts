@@ -75,6 +75,10 @@ export class Rational {
 		return this.compare(rational) <= 0;
 	}
 
+	static parse(str: string) {
+		const [[_, numeratorString, denominatorString]] = str.matchAll(/^(-?\d+)\/(-?\d+)$/g);
+		return new Rational(Number.parseInt(numeratorString), Number.parseInt(denominatorString));
+	}
 	toString() {
 		return `${this.numerator}/${this.denominator}`;
 	}

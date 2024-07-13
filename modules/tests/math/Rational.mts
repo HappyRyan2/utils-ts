@@ -2,6 +2,13 @@ import { describe, it } from "mocha";
 import { Rational } from "../../math/Rational.mjs";
 import { assert } from "chai";
 
+describe("Rational.parse", () => {
+	it("can correctly parse a rational number in the form a/b", () => {
+		const rational = Rational.parse("-12/34");
+		assert.equal(rational.numerator, -6);
+		assert.equal(rational.denominator, 17);
+	});
+});
 describe("Rational.isGreaterThan", () => {
 	const testCases: [Rational, Rational][] = [
 		[new Rational(1, 1), new Rational(2, 3)],
