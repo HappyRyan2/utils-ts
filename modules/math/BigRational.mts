@@ -4,7 +4,9 @@ export class BigRational {
 	readonly numerator: bigint;
 	readonly denominator: bigint;
 
-	constructor(numerator: bigint, denominator: bigint = 1n) {
+	constructor(numerator: bigint | number, denominator: bigint | number = 1n) {
+		numerator = BigInt(numerator);
+		denominator = BigInt(denominator);
 		if(numerator % 1n !== 0n || denominator % 1n !== 0n) {
 			throw new Error(`When constructing a rational number, expected numerator and denominator to be integers, but instead recieved ${numerator} and ${denominator}.`);
 		}
