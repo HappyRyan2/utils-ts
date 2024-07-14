@@ -4,7 +4,7 @@ export class BigRational {
 	readonly numerator: bigint;
 	readonly denominator: bigint;
 
-	constructor(numerator: bigint | number, denominator: bigint | number = 1n) {
+	constructor(numerator: bigint | number, denominator: bigint | number = 1n, simplify: boolean = true) {
 		numerator = BigInt(numerator);
 		denominator = BigInt(denominator);
 		if(numerator % 1n !== 0n || denominator % 1n !== 0n) {
@@ -17,10 +17,14 @@ export class BigRational {
 			this.numerator = 0n;
 			this.denominator = 1n;
 		}
-		else {
+		else if(simplify) {
 			const gcd = BigintMath.gcd(numerator, denominator);
 			this.numerator = numerator / gcd;
 			this.denominator = denominator / gcd;
+		}
+		else {
+			this.numerator = numerator;
+			this.denominator = denominator;
 		}
 	}
 
