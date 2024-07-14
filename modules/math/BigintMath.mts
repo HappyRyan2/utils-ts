@@ -28,7 +28,7 @@ export class BigintMath {
 	}
 	private static recursiveGCD(num1: bigint, num2: bigint): bigint {
 		if(num1 % num2 === 0n) { return num2; }
-		return BigintMath.gcd(num2, num1 % num2);
+		return BigintMath.recursiveGCD(num2, num1 % num2);
 	}
 	static gcd(num1: bigint, num2: bigint): bigint {
 		if(num1 === 0n || num2 === 0n) { throw new Error("Cannot calculate GCD when either of the inputs are zero."); }
