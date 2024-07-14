@@ -32,26 +32,26 @@ export class BigRational {
 		return this.numerator * rational.denominator === this.denominator * rational.numerator;
 	}
 
-	add(rational: BigRational) {
-		return new BigRational(this.numerator * rational.denominator + this.denominator * rational.numerator, this.denominator * rational.denominator);
+	add(rational: BigRational, simplify = true) {
+		return new BigRational(this.numerator * rational.denominator + this.denominator * rational.numerator, this.denominator * rational.denominator, simplify);
 	}
-	multiply(rational: BigRational) {
-		return new BigRational(this.numerator * rational.numerator, this.denominator * rational.denominator);
+	multiply(rational: BigRational, simplify = true) {
+		return new BigRational(this.numerator * rational.numerator, this.denominator * rational.denominator, simplify);
 	}
 	opposite() {
-		return new BigRational(-this.numerator, this.denominator);
+		return new BigRational(-this.numerator, this.denominator, false);
 	}
 	inverse() {
 		if(this.numerator === 0n) {
 			throw new Error("Cannot find the inverse of 0.");
 		}
-		return new BigRational(this.denominator, this.numerator);
+		return new BigRational(this.denominator, this.numerator, false);
 	}
-	subtract(rational: BigRational) {
-		return this.add(rational.opposite());
+	subtract(rational: BigRational, simplify = true) {
+		return this.add(rational.opposite(), simplify);
 	}
-	divide(rational: BigRational) {
-		return this.multiply(rational.inverse());
+	divide(rational: BigRational, simplify = true) {
+		return this.multiply(rational.inverse(), simplify);
 	}
 
 	isPositive() {
@@ -65,7 +65,7 @@ export class BigRational {
 		return (BigintMath.sign(this.numerator) === BigintMath.sign(this.denominator)) ? 1n : -1n;
 	}
 	compare(rational: BigRational) {
-		const difference = this.subtract(rational);
+		const difference = this.subtract(rational, false);
 		return difference.sign();
 	}
 	isGreaterThan(rational: BigRational) {
