@@ -83,7 +83,7 @@ export class BigRational {
 
 	static parse(str: string) {
 		const [[_, numeratorString, denominatorString]] = str.matchAll(/^(-?\d+)\/(-?\d+)$/g);
-		return new BigRational(BigInt(numeratorString), BigInt(denominatorString));
+		return new BigRational(BigInt(numeratorString), BigInt(denominatorString), false);
 	}
 	toString() {
 		return `${this.numerator}/${this.denominator}`;
