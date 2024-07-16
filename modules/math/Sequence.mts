@@ -93,6 +93,13 @@ export class Sequence {
 			}
 		}
 	}
+	includes(term: number) {
+		for(const [i, num] of this.entries()) {
+			if(num === term) { return true; }
+			if(num > term) { return false; }
+		}
+		return false;
+	}
 
 	/*
 	------------------------------------------------------------

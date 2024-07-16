@@ -136,3 +136,10 @@ describe("Sequence.multisetsWithSum", () => {
 		]);
 	});
 });
+describe("Sequence.includes", () => {
+	it("returns whether or not the term is in the sequence, assuming the sequence is increasing", () => {
+		const sequence = new Sequence(n => 2 ** n);
+		assert.isTrue(sequence.includes(8));
+		assert.isFalse(sequence.includes(9));
+	});
+});
