@@ -140,4 +140,21 @@ export class Sequence {
 			}
 		}
 	}
+	*tuplesWithSum(sum: number, tupleSize?: number): Generator<number[]> {
+		if(tupleSize == undefined) {
+			for(let size = 0; size <= sum; size ++) {
+				yield* this.tuplesWithSum(sum, size);
+			}
+		}
+		else if(tupleSize === 0 && sum === 0) {
+			yield [];
+		}
+		else if(tupleSize >= 1) {
+			for(const firstTerm of this.termsBelow(sum, "inclusive")) {
+				for(const tuple of this.tuplesWithSum(sum - firstTerm, tupleSize - 1)) {
+					yield [firstTerm, ...tuple];
+				}
+			}
+		}
+	}
 }

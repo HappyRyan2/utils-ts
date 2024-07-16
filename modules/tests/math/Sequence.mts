@@ -143,3 +143,44 @@ describe("Sequence.includes", () => {
 		assert.isFalse(sequence.includes(9));
 	});
 });
+
+describe("Sequence.tuplesWithSum", () => {
+	it("can yield a list of all tuples of a given size that have a given sum", () => {
+		const tuples = [...Sequence.POSITIVE_INTEGERS.tuplesWithSum(5, 3)];
+		assert.sameDeepMembers(tuples, [
+			[1, 1, 3],
+			[1, 2, 2],
+			[1, 3, 1],
+
+			[2, 1, 2],
+			[2, 2, 1],
+
+			[3, 1, 1],
+		]);
+	});
+	it("can yield a list of all tuples that have a given sum and have no more elements than the given sum", () => {
+		const tuples = [...Sequence.POSITIVE_INTEGERS.tuplesWithSum(5)];
+		assert.sameDeepMembers(tuples, [
+			[5],
+
+			[1, 4],
+			[2, 3],
+			[3, 2],
+			[4, 1],
+
+			[1, 1, 3],
+			[1, 2, 2],
+			[1, 3, 1],
+			[2, 1, 2],
+			[2, 2, 1],
+			[3, 1, 1],
+
+			[2, 1, 1, 1],
+			[1, 2, 1, 1],
+			[1, 1, 2, 1],
+			[1, 1, 1, 2],
+
+			[1, 1, 1, 1, 1],
+		]);
+	});
+});
