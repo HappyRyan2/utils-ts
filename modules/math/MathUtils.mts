@@ -57,6 +57,9 @@ export class MathUtils {
 		if(num1 % num2 === 0) { return num2; }
 		return MathUtils.gcd(num1 % num2, num2);
 	}
+	static lcm(num1: number, num2: number) {
+		return num1 * num2 / MathUtils.gcd(num1, num2);
+	}
 	static bezoutCoefficients(num1: number, num2: number): [number, number] {
 		if(num1 < 0 && num2 < 0) {
 			const [coef1, coef2] = MathUtils.bezoutCoefficients(-num1, -num2);
