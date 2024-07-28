@@ -44,6 +44,11 @@ export class Sequence {
 			yield [index, this.getTerm(index)];
 		}
 	}
+	*[Symbol.iterator]() {
+		for(let index = 0; index < Infinity; index ++) {
+			yield this.getTerm(index);
+		}
+	}
 	slice(startIndex: number, endIndex: number, startMode: "inclusive" | "exclusive" = "inclusive", endMode: "inclusive" | "exclusive" = "exclusive") {
 		const result = [];
 		for(let index = (startMode === "inclusive") ? startIndex : startIndex + 1; (endMode === "inclusive") ? (index <= endIndex) : (index < endIndex); index ++) {

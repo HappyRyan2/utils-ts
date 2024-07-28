@@ -40,6 +40,17 @@ describe("Sequence.getTerm", () => {
 		assert.equal(timesYielded, 8);
 	});
 });
+describe("Sequence iterator", () => {
+	it("yields the terms in the sequence", () => {
+		const sequence = new Sequence(n => n ** 2); // 0, 1, 4, 9, ...
+		const terms = [];
+		for(const term of sequence) {
+			if(terms.length >= 5) { break; }
+			terms.push(term);
+		}
+		assert.deepEqual(terms, [0, 1, 4, 9, 16]);
+	});
+});
 describe("Sequence.entriesBelow", () => {
 	it("can yield all the terms and indices such that the term is less than or equal to the given maximum", () => {
 		const sequence = new Sequence(n => 2 ** n); // 1, 2, 4, 8, ...
