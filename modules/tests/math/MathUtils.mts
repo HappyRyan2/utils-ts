@@ -92,3 +92,13 @@ describe("MathUtils.factorial", () => {
 		assert.equal(result, 24);
 	});
 });
+describe("MathUtils.factors", () => {
+	it("returns a list of the distinct prime factors of the number, in increasing order", () => {
+		const factors = MathUtils.factors(20);
+		assert.deepEqual(factors, [2, 5]);
+	});
+	it("works for a prime number", () => {
+		const factors = MathUtils.factors(7);
+		assert.deepEqual(factors, [7]);
+	});
+});

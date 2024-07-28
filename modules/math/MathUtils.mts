@@ -104,4 +104,19 @@ export class MathUtils {
 		}
 		return result;
 	}
+	static factors(num: number) {
+		const factors = [];
+		for(let i = 2; i ** 2 <= num; i ++) {
+			if(num % i === 0) {
+				factors.push(i);
+			}
+			while(num % i === 0) {
+				num /= i;
+			}
+		}
+		if(num !== 1) {
+			factors.push(num);
+		}
+		return factors;
+	}
 }
