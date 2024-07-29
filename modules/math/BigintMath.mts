@@ -35,4 +35,14 @@ export class BigintMath {
 		[num1, num2] = [BigintMath.max(BigintMath.abs(num1), BigintMath.abs(num2)), BigintMath.min(BigintMath.abs(num1), BigintMath.abs(num2))];
 		return BigintMath.recursiveGCD(num1, num2);
 	}
+	static factorial(num: bigint) {
+		if(num < 0) {
+			throw new Error(`Cannot calculate the factorial of a negative integer (${num}).`);
+		}
+		let result = 1n;
+		for(let i = 1n; i <= num; i ++) {
+			result *= i;
+		}
+		return result;
+	}
 }
