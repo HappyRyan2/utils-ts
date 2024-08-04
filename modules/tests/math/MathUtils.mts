@@ -102,3 +102,9 @@ describe("MathUtils.factors", () => {
 		assert.deepEqual(factors, [7]);
 	});
 });
+describe("MathUtils.divisors", () => {
+	it("returns a list of all the divisors of the number, in increasing order", () => {
+		const divisors = MathUtils.divisors(36);
+		assert.deepEqual(divisors, [1, 2, 3, 4, 6, 9, 12, 18, 36]);
+	});
+});

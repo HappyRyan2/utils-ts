@@ -119,4 +119,17 @@ export class MathUtils {
 		}
 		return factors;
 	}
+	static divisors(num: number) {
+		const divisorsBelowSqrt = [];
+		const divisorsAboveSqrt = [];
+		for(let i = 1; i ** 2 <= num; i ++) {
+			if(num % i === 0) {
+				divisorsBelowSqrt.push(i);
+				if(i ** 2 !== num) {
+					divisorsAboveSqrt.unshift(num / i);
+				}
+			}
+		}
+		return [...divisorsBelowSqrt, ...divisorsAboveSqrt];
+	}
 }
