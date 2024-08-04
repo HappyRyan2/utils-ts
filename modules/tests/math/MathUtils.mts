@@ -108,3 +108,9 @@ describe("MathUtils.divisors", () => {
 		assert.deepEqual(divisors, [1, 2, 3, 4, 6, 9, 12, 18, 36]);
 	});
 });
+describe("MathUtils.properDivisors", () => {
+	it("returns a list of all the proper divisors of the number (i.e. excluding 1 and the number itself), in increasing order", () => {
+		const properDivisors = MathUtils.properDivisors(36);
+		assert.deepEqual(properDivisors, [2, 3, 4, 6, 9, 12, 18]);
+	});
+});

@@ -132,4 +132,17 @@ export class MathUtils {
 		}
 		return [...divisorsBelowSqrt, ...divisorsAboveSqrt];
 	}
+	static properDivisors(num: number) {
+		const divisorsBelowSqrt = [];
+		const divisorsAboveSqrt = [];
+		for(let i = 2; i ** 2 <= num; i ++) {
+			if(num % i === 0) {
+				divisorsBelowSqrt.push(i);
+				if(i ** 2 !== num) {
+					divisorsAboveSqrt.unshift(num / i);
+				}
+			}
+		}
+		return [...divisorsBelowSqrt, ...divisorsAboveSqrt];
+	}
 }
