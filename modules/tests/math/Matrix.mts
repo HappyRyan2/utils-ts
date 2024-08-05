@@ -2,6 +2,7 @@ import { assert } from "chai";
 import { Matrix } from "../../math/Matrix.mjs";
 import { Field } from "../../math/Field.mjs";
 import { describe, it } from "mocha";
+import { Rational } from "../../math/Rational.mjs";
 
 describe("Matrix.fromFunction", () => {
 	it("can construct a matrix from a function that outputs the value at each (row, column) entry", () => {
@@ -233,6 +234,20 @@ describe("Matrix.inverse", () => {
 			[1, 0, 0],
 			[0, 2, 0],
 			[0, 0, 3],
+		]);
+	});
+	it("works when the field element types have a custom equality method", () => {
+		const matrix = new Matrix(3, 3, Field.RATIONALS, [
+			[new Rational(0), new Rational(2), new Rational(0)],
+			[new Rational(0), new Rational(0), new Rational(3)],
+			[new Rational(1), new Rational(0), new Rational(0)],
+		]);
+		const inverse = matrix.inverse();
+		assert.isNotNull(inverse);
+		assert.deepEqual(inverse!.values(), [
+			[new Rational(0), new Rational(0), new Rational(1)],
+			[new Rational(1, 2), new Rational(0), new Rational(0)],
+			[new Rational(0), new Rational(1, 3), new Rational(0)],
 		]);
 	});
 });

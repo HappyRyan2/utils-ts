@@ -37,7 +37,7 @@ export class Matrix<FieldElementType> {
 		return this.rows.get(row)!.get(column) ?? this.field.zero;
 	}
 	set(rowIndex: number, column: number, value: FieldElementType) {
-		if(value === this.field.zero) {
+		if(this.field.areEqual(value, this.field.zero)) {
 			const row = this.rows.get(rowIndex);
 			if(row) {
 				row.delete(column);
@@ -59,7 +59,7 @@ export class Matrix<FieldElementType> {
 		this.set(row, column, updateFunc(value));
 	}
 	private setInRow(row: Map<number, FieldElementType>, index: number, value: FieldElementType) {
-		if(value === this.field.zero) {
+		if(this.field.areEqual(value, this.field.zero)) {
 			row.delete(index);
 		}
 		else {
@@ -128,7 +128,7 @@ export class Matrix<FieldElementType> {
 		}
 		for(let row = 0; row < this.height; row ++) {
 			for(let column = 0; column < this.width; column ++) {
-				if(this.get(row, column) !== matrix.get(row, column)) {
+				if(!this.field.areEqual(this.get(row, column), matrix.get(row, column))) {
 					return false;
 				}
 			}
@@ -208,7 +208,7 @@ export class Matrix<FieldElementType> {
 	rank() {
 		const rowEchelonForm = this.rowEchelonForm(false);
 		for(let row = rowEchelonForm.height - 1; row >= 0; row --) {
-			if(Utils.range(0, rowEchelonForm.width - 1).some(column => rowEchelonForm.get(row, column) !== rowEchelonForm.field.zero)) {
+			if(Utils.range(0, rowEchelonForm.width - 1).some(column => !rowEchelonForm.field.areEqual(rowEchelonForm.get(row, column), rowEchelonForm.field.zero))) {
 				return row + 1;
 			}
 		}
@@ -252,7 +252,7 @@ class GaussianElimination<T> {
 		};
 	}
 	*addScaledRow(sourceRowIndex: number, destinationRowIndex: number, scalar: T): Generator<ScaledAddOperation<T>> {
-		if(scalar === this.matrix.field.zero) { return; }
+		if(this.matrix.field.areEqual(scalar, this.matrix.field.zero)) { return; }
 		const beforeAdd = this.matrix.copy();
 		this.matrix.addScaledRow(sourceRowIndex, destinationRowIndex, scalar);
 		yield {
@@ -263,7 +263,7 @@ class GaussianElimination<T> {
 		};
 	}
 	*multiplyRow(rowIndex: number, scalar: T): Generator<MultiplyOperation<T>> {
-		if(scalar === this.matrix.field.one) { return; }
+		if(this.matrix.field.areEqual(scalar, this.matrix.field.one)) { return; }
 		const beforeMultiplication = this.matrix.copy();
 		this.matrix.multiplyRow(rowIndex, scalar);
 		yield {
@@ -281,7 +281,7 @@ class GaussianElimination<T> {
 			/* Swap rows if necessary to move any nonzero entry to the pivot row. */
 			let foundNonzeroEntry = false;
 			for(let j = pivotRow; j < this.matrix.height; j ++) {
-				if(this.matrix.get(j, i) !== this.matrix.field.zero) {
+				if(!this.matrix.field.areEqual(this.matrix.get(j, i), this.matrix.field.zero)) {
 					yield* this.swapRows(pivotRow, j);
 					foundNonzeroEntry = true;
 					break;

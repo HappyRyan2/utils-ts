@@ -9,6 +9,7 @@ export class Field<ElementType> {
 	multiply: (element1: ElementType, element2: ElementType) => ElementType;
 	opposite: (element: ElementType) => ElementType;
 	inverse: (element: ElementType) => ElementType;
+	areEqual: (element1: ElementType, element2: ElementType) => boolean;
 
 	constructor(
 		zero: ElementType,
@@ -17,6 +18,7 @@ export class Field<ElementType> {
 		multiply: (element1: ElementType, element2: ElementType) => ElementType,
 		opposite: (element: ElementType) => ElementType,
 		inverse: (element: ElementType) => ElementType,
+		areEqual: (element1: ElementType, element2: ElementType) => boolean = (a, b) => a === b,
 	) {
 		this.zero = zero;
 		this.one = one;
@@ -24,6 +26,7 @@ export class Field<ElementType> {
 		this.multiply = multiply;
 		this.opposite = opposite;
 		this.inverse = inverse;
+		this.areEqual = areEqual;
 	}
 
 	subtract(element1: ElementType, element2: ElementType) {
@@ -83,6 +86,7 @@ export class Field<ElementType> {
 		(a, b) => a.multiply(b),
 		x => x.opposite(),
 		x => x.inverse(),
+		(a, b) => a.equals(b),
 	);
 	static BIG_RATIONALS = new Field<BigRational>(
 		new BigRational(0, 1),
@@ -91,5 +95,6 @@ export class Field<ElementType> {
 		(a, b) => a.multiply(b),
 		x => x.opposite(),
 		x => x.inverse(),
+		(a, b) => a.equals(b),
 	);
 }
