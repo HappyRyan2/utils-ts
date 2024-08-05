@@ -23,6 +23,15 @@ export class Matrix<FieldElementType> {
 			}
 		}
 	}
+	static fromFunction<T>(width: number, height: number, callback: (row: number, column: number) => T, field: Field<T>) {
+		const matrix = new Matrix(width, height, field, []);
+		for(let rowIndex = 0; rowIndex < height; rowIndex ++) {
+			for(let columnIndex = 0; columnIndex < width; columnIndex ++) {
+				matrix.set(rowIndex, columnIndex, callback(rowIndex, columnIndex));
+			}
+		}
+		return matrix;
+	}
 	get(row: number, column: number): FieldElementType {
 		if(!this.rows.get(row)) { return this.field.zero; }
 		return this.rows.get(row)!.get(column) ?? this.field.zero;

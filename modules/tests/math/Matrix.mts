@@ -3,6 +3,16 @@ import { Matrix } from "../../math/Matrix.mjs";
 import { Field } from "../../math/Field.mjs";
 import { describe, it } from "mocha";
 
+describe("Matrix.fromFunction", () => {
+	it("can construct a matrix from a function that outputs the value at each (row, column) entry", () => {
+		const matrix = Matrix.fromFunction(3, 3, (row, column) => row - column, Field.REALS);
+		assert.deepEqual(matrix.values(), [
+			[0, -1, -2],
+			[1, 0, -1],
+			[2, 1, 0],
+		]);
+	});
+});
 describe("Matrix.values", () => {
 	it("returns the values as a 2D array, and works when the matrix is not square", () => {
 		const matrix = new Matrix(3, 2, Field.REALS, [
