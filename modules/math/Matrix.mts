@@ -54,6 +54,10 @@ export class Matrix<FieldElementType> {
 			row.set(column, value);
 		}
 	}
+	update(row: number, column: number, updateFunc: (value: FieldElementType) => FieldElementType) {
+		const value = this.get(row, column);
+		this.set(row, column, updateFunc(value));
+	}
 	private setInRow(row: Map<number, FieldElementType>, index: number, value: FieldElementType) {
 		if(value === this.field.zero) {
 			row.delete(index);
