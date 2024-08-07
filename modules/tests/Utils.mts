@@ -197,4 +197,16 @@ describe("Utils.memoize", () => {
 		assert.equal(memoized(3001, 4002), 3);
 		assert.equal(timesRun, 1);
 	});
+	it("should stringify arguments in a way that doesn't cause collisions due to concatenation", () => {
+		let timesRun = 0;
+		const add = (a: number, b: number) => {
+			timesRun ++;
+			return a + b;
+		};
+		const memoizedAdd = Utils.memoize(add);
+
+		assert.equal(memoizedAdd(1, 23), 24);
+		assert.equal(memoizedAdd(12, 3), 15);
+		assert.equal(timesRun, 2);
+	});
 });

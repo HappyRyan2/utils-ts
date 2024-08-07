@@ -130,7 +130,7 @@ export class Utils {
 		const cachedResults = new Map<string, ReturnType>();
 		return function(...args: ArgsType) {
 			args = standardizeArgs(...args);
-			const argsString = args.join("");
+			const argsString = args.join(", ");
 			if(cachedResults.has(argsString)) {
 				return cachedResults.get(argsString) as ReturnType;
 			}
