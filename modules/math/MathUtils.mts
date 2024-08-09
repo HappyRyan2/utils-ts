@@ -154,4 +154,12 @@ export class MathUtils {
 		}
 		return result;
 	}
+	static digits(num: number) {
+		const digits = [];
+		do {
+			digits.unshift(num % 10);
+			num = Math.floor(num / 10);
+		} while(num !== 0);
+		return digits;
+	}
 }

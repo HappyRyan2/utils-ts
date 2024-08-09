@@ -129,3 +129,8 @@ describe("MathUtils.totient", () => {
 		assert.equal(result, 8);
 	});
 });
+describe("MathUtils.digits", () => {
+	it("returns the digits of the given integer in order", () => {
+		assert.deepEqual(MathUtils.digits(123456), [1, 2, 3, 4, 5, 6]);
+	});
+});
