@@ -114,3 +114,12 @@ describe("MathUtils.properDivisors", () => {
 		assert.deepEqual(properDivisors, [2, 3, 4, 6, 9, 12, 18]);
 	});
 });
+describe("MathUtils.factorize", () => {
+	it("returns a map that gives the exponent on each prime factor", () => {
+		const factorization = MathUtils.factorize(12);
+		assert.deepEqual(factorization, new Map([
+			[2, 2],
+			[3, 1],
+		]));
+	});
+});

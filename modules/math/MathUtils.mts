@@ -119,6 +119,19 @@ export class MathUtils {
 		}
 		return factors;
 	}
+	static factorize(num: number) {
+		const result = new Map<number, number>();
+		for(let i = 2; i ** 2 <= num; i ++) {
+			while(num % i === 0) {
+				result.set(i, (result.get(i) ?? 0) + 1);
+				num /= i;
+			}
+		}
+		if(num !== 1) {
+			result.set(num, 1);
+		}
+		return result;
+	}
 	static divisors(num: number) {
 		const divisorsBelowSqrt = [];
 		const divisorsAboveSqrt = [];
