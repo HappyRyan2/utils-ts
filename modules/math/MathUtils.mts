@@ -146,4 +146,12 @@ export class MathUtils {
 		}
 		return [...divisorsBelowSqrt, ...divisorsAboveSqrt];
 	}
+
+	static totient(num: number) {
+		let result = 1;
+		for(const [prime, exponent] of MathUtils.factorize(num)) {
+			result *= prime ** (exponent - 1) * (prime - 1);
+		}
+		return result;
+	}
 }

@@ -123,3 +123,9 @@ describe("MathUtils.factorize", () => {
 		]));
 	});
 });
+describe("MathUtils.totient", () => {
+	it("computes the number of numbers k less than the given number n such that gcd(n, k) = 1", () => {
+		const result = MathUtils.totient(15);
+		assert.equal(result, 8);
+	});
+});
