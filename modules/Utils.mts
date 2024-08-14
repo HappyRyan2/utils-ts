@@ -30,6 +30,31 @@ export class Utils {
 		return result;
 	}
 
+	static minEntry(items: number[]): [number, number, number];
+	static minEntry<T>(items: T[], callback: ((item: T, index: number) => number)): [number, T, number];
+	static minEntry<T>(items: T[], callback?: (item: T, index: number) => number) {
+		let minEntry: [number, T, number] = [0, items[0], callback ? callback(items[0] as T, 0) : items[0] as number];
+		for(let i = 1; i < items.length; i ++) {
+			const output = callback ? callback(items[i], i) : (items[i] as number);
+			if(output < minEntry[2]) {
+				minEntry = [i, items[i], output];
+			}
+		}
+		return minEntry;
+	}
+	static maxEntry(items: number[]): [number, number, number];
+	static maxEntry<T>(items: T[], callback: ((item: T, index: number) => number)): [number, T, number];
+	static maxEntry<T>(items: T[], callback?: (item: T, index: number) => number) {
+		let minEntry: [number, T, number] = [0, items[0], callback ? callback(items[0] as T, 0) : items[0] as number];
+		for(let i = 1; i < items.length; i ++) {
+			const output = callback ? callback(items[i], i) : (items[i] as number);
+			if(output > minEntry[2]) {
+				minEntry = [i, items[i], output];
+			}
+		}
+		return minEntry;
+	}
+
 	static toggleSetElement<T>(set: Set<T>, element: T) {
 		if(set.has(element)) {
 			set.delete(element);

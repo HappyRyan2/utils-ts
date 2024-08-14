@@ -210,3 +210,27 @@ describe("Utils.memoize", () => {
 		assert.equal(timesRun, 2);
 	});
 });
+describe("Utils.minEntry", () => {
+	it("can return the triple [index, value, output] at which the minimum value of the callback is attained", () => {
+		const array = ["abc", "ab", "abcd"];
+		const minEntry = Utils.minEntry(array, str => str.length);
+		assert.sameOrderedMembers(minEntry, [1, "ab", 2]);
+	});
+	it("can return the triple [index, value, output] for the minimum entry of a list of numbers without being given a callback", () => {
+		const array = [300, 20, 4000];
+		const minEntry = Utils.minEntry(array);
+		assert.sameOrderedMembers(minEntry, [1, 20, 20]);
+	});
+});
+describe("Utils.maxEntry", () => {
+	it("can return the triple [index, value, output] at which the maximum value of the callback is attained", () => {
+		const array = ["abc", "ab", "abcd"];
+		const maxEntry = Utils.maxEntry(array, str => str.length);
+		assert.sameOrderedMembers(maxEntry, [2, "abcd", 4]);
+	});
+	it("can return the triple [index, value, value] for the maximum entry of a list of numbers without being given a callback", () => {
+		const array = [300, 20, 4000];
+		const maxEntry = Utils.maxEntry(array);
+		assert.sameOrderedMembers(maxEntry, [2, 4000, 4000]);
+	});
+});
