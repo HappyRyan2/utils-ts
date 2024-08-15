@@ -55,6 +55,43 @@ export class Utils {
 		return minEntry;
 	}
 
+	static minIndex(items: number[]): number;
+	static minIndex<T>(items: T[], callback: ((item: T, index: number) => number)): number;
+	static minIndex<T>(items: T[] | number[], callback?: (item: T, index: number) => number) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return Utils.minEntry(items as any, callback as any)[0];
+	}
+	static minValue(items: number[]): number;
+	static minValue<T>(items: T[], callback: ((item: T, index: number) => number)): T;
+	static minValue<T>(items: T[] | number[], callback?: (item: T, index: number) => number) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return Utils.minEntry(items as any, callback as any)[1];
+	}
+	static minOutput(items: number[]): number;
+	static minOutput<T>(items: T[], callback: ((item: T, index: number) => number)): number;
+	static minOutput<T>(items: T[] | number[], callback?: (item: T, index: number) => number) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return Utils.minEntry(items as any, callback as any)[2];
+	}
+	static maxIndex(items: number[]): number;
+	static maxIndex<T>(items: T[], callback: ((item: T, index: number) => number)): number;
+	static maxIndex<T>(items: T[] | number[], callback?: (item: T, index: number) => number) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return Utils.maxEntry(items as any, callback as any)[0];
+	}
+	static maxValue(items: number[]): number;
+	static maxValue<T>(items: T[], callback: ((item: T, index: number) => number)): T;
+	static maxValue<T>(items: T[] | number[], callback?: (item: T, index: number) => number) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return Utils.maxEntry(items as any, callback as any)[1];
+	}
+	static maxOutput(items: number[]): number;
+	static maxOutput<T>(items: T[], callback: ((item: T, index: number) => number)): number;
+	static maxOutput<T>(items: T[] | number[], callback?: (item: T, index: number) => number) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return Utils.maxEntry(items as any, callback as any)[2];
+	}
+
 	static toggleSetElement<T>(set: Set<T>, element: T) {
 		if(set.has(element)) {
 			set.delete(element);
