@@ -185,18 +185,18 @@ export class Utils {
 		}
 	}
 
-	static memoize<ArgsType extends Array<unknown>, ReturnType>(
+	static memoize<ArgsType extends Array<unknown>, ReturnType, ThisType>(
 		func: (...args: ArgsType) => ReturnType,
 		standardizeArgs: ((...args: ArgsType) => ArgsType) = (...args) => args,
 	) {
 		const cachedResults = new Map<string, ReturnType>();
-		return function(...args: ArgsType) {
+		return function(this: ThisType, ...args: ArgsType) {
 			args = standardizeArgs(...args);
 			const argsString = args.join(", ");
 			if(cachedResults.has(argsString)) {
 				return cachedResults.get(argsString) as ReturnType;
 			}
-			const result = func(...args);
+			const result = func.apply(this, args);
 			cachedResults.set(argsString, result);
 			return result;
 		};

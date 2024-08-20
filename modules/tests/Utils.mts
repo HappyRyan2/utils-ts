@@ -209,6 +209,13 @@ describe("Utils.memoize", () => {
 		assert.equal(memoizedAdd(12, 3), 15);
 		assert.equal(timesRun, 2);
 	});
+	it("calls the function with the correct this value", () => {
+		const obj = {
+			func: function() { return this; },
+		};
+		obj.func = Utils.memoize(obj.func);
+		assert.equal(obj.func(), obj);
+	});
 });
 describe("Utils.minEntry", () => {
 	it("can return the triple [index, value, output] at which the minimum value of the callback is attained", () => {
