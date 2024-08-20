@@ -147,6 +147,16 @@ describe("Sequence.multisetsWithSum", () => {
 		]);
 	});
 });
+describe("Sequence.numMultisetsWithSum", () => {
+	it("can return the number of sets of 2 positive integers that sum to 6", () => {
+		const result = Sequence.POSITIVE_INTEGERS.numMultisetsWithSum(6, 2);
+		assert.equal(result, 3);
+	});
+	it("returns multisets of any size when the setSize parameter is omitted", () => {
+		const result = Sequence.POSITIVE_INTEGERS.numMultisetsWithSum(4);
+		assert.equal(result, 5);
+	});
+});
 describe("Sequence.includes", () => {
 	it("returns whether or not the term is in the sequence, assuming the sequence is increasing", () => {
 		const sequence = new Sequence(n => 2 ** n);

@@ -163,4 +163,26 @@ export class Sequence {
 			}
 		}
 	}
+	numMultisetsWithSum(sum: number, setSize?: number): number {
+		if(setSize == undefined) {
+			let result = 0;
+			for(let size = 0; size <= sum; size ++) {
+				result += this.numMultisetsWithSum(sum, size);
+			}
+			return result;
+		}
+		else if(setSize === 0 && sum === 0) {
+			return 1;
+		}
+		else if(setSize !== 0) {
+			let result = 0;
+			for(const [index, firstTerm] of this.entriesBelow(sum, "inclusive")) {
+				result += new Sequence(n => this.getTerm(n + index)).numMultisetsWithSum(sum - firstTerm, setSize - 1);
+			}
+			return result;
+		}
+		else {
+			return 0;
+		}
+	}
 }
