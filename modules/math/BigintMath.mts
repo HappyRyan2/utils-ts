@@ -1,4 +1,7 @@
 export class BigintMath {
+	static sum(numbers: bigint[]) {
+		return numbers.reduce((accumulator, value) => accumulator + value, 0n);
+	}
 	static max(...values: bigint[]) {
 		let max = values[0];
 		for(const value of values) {
