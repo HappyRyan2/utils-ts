@@ -44,4 +44,9 @@ export class Tree {
 			}
 		}
 	}
+	static *nodes<T>(root: T, getChildren: (node: T) => T[] | Generator<T>) {
+		for(const { node } of Tree.nodesAndAncestors(root, getChildren)) {
+			yield node;
+		}
+	}
 }
