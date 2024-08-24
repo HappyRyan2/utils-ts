@@ -134,3 +134,9 @@ describe("MathUtils.digits", () => {
 		assert.deepEqual(MathUtils.digits(123456), [1, 2, 3, 4, 5, 6]);
 	});
 });
+describe("MathUtils.binomial", () => {
+	it("correctly calculates binomial coefficients using the formula n!/(k! * (n-k)!)", () => {
+		const result = MathUtils.binomial(10, 4);
+		assert.equal(result, 210);
+	});
+});
