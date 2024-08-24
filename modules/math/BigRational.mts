@@ -91,4 +91,8 @@ export class BigRational {
 	toNumber(digitsOfPrecision: number = 11) {
 		return Number((this.numerator * (10n) ** BigInt(digitsOfPrecision)) / this.denominator) / ((10) ** digitsOfPrecision);
 	}
+
+	square() {
+		return this.multiply(this);
+	}
 }
