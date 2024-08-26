@@ -38,6 +38,9 @@ export class BigintMath {
 		[num1, num2] = [BigintMath.max(BigintMath.abs(num1), BigintMath.abs(num2)), BigintMath.min(BigintMath.abs(num1), BigintMath.abs(num2))];
 		return BigintMath.recursiveGCD(num1, num2);
 	}
+	static lcm(num1: bigint, num2: bigint) {
+		return num1 * num2 / BigintMath.gcd(num1, num2);
+	}
 	static factorial(num: bigint) {
 		if(num < 0) {
 			throw new Error(`Cannot calculate the factorial of a negative integer (${num}).`);
