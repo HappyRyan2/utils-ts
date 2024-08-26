@@ -113,6 +113,27 @@ export class Utils {
 			yield [] as CartesianProductType<T>;
 		}
 	}
+	static *subsets<T>(items: Set<T> | Array<T>, size?: number): Generator<Set<T>> {
+		if(typeof size !== "number") {
+			const setSize = (items instanceof Set) ? items.size : items.length;
+			for(let subsetSize = 0; subsetSize <= setSize; subsetSize ++) {
+				yield* Utils.subsets(items, subsetSize);
+			}
+			return;
+		}
+		if(size < 0) { return; }
+		if(size === 0) {
+			yield new Set([]);
+			return;
+		}
+		items = [...items];
+		for(const [firstIndex, firstItem] of items.slice(0, items.length - (size - 1)).entries()) {
+			const after = items.slice(firstIndex + 1);
+			for(const subset of Utils.subsets(after, size - 1)) {
+				yield new Set([firstItem, ...subset]);
+			}
+		}
+	}
 
 	private static remainingValidItems<T>(items: T[], index: number, allowRepetition: DuplicateMode, orderMode: OrderMode) {
 		if(orderMode === "tuples") {

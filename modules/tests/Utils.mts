@@ -241,3 +241,29 @@ describe("Utils.maxEntry", () => {
 		assert.sameOrderedMembers(maxEntry, [2, 4000, 4000]);
 	});
 });
+describe("Utils.subsets", () => {
+	it("can yield all the subsets of the given set that have the given size", () => {
+		const result = [...Utils.subsets(["a", "b", "c", "d"], 2)];
+		assert.sameDeepMembers(result, [
+			new Set(["a", "b"]),
+			new Set(["a", "c"]),
+			new Set(["a", "d"]),
+			new Set(["b", "c"]),
+			new Set(["b", "d"]),
+			new Set(["c", "d"]),
+		]);
+	});
+	it("can yield a list of all the subsets when the size parameter is omitted", () => {
+		const result = [...Utils.subsets(["a", "b", "c"])];
+		assert.sameDeepMembers(result, [
+			new Set([]),
+			new Set(["a"]),
+			new Set(["b"]),
+			new Set(["c"]),
+			new Set(["a", "b"]),
+			new Set(["a", "c"]),
+			new Set(["b", "c"]),
+			new Set(["a", "b", "c"]),
+		]);
+	});
+});
