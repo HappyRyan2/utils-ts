@@ -10,3 +10,11 @@ describe("BigintMath.gcd", () => {
 		assert.equal(BigintMath.gcd(24n, 14n), 2n);
 	});
 });
+describe("BigintMath.divideCeil", () => {
+	it("works when the number is evenly divisible", () => {
+		assert.equal(BigintMath.divideCeil(15n, 5n), 3n);
+	});
+	it("rounds up when the number is not evenly divisible", () => {
+		assert.equal(BigintMath.divideCeil(16n, 5n), 4n);
+	});
+});

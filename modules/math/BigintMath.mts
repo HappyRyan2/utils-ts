@@ -41,6 +41,9 @@ export class BigintMath {
 	static lcm(num1: bigint, num2: bigint) {
 		return num1 * num2 / BigintMath.gcd(num1, num2);
 	}
+	static divideCeil(num: bigint, divisor: bigint) {
+		return (num / divisor) + (num % divisor === 0n ? 0n : 1n);
+	}
 	static factorial(num: bigint) {
 		if(num < 0) {
 			throw new Error(`Cannot calculate the factorial of a negative integer (${num}).`);
