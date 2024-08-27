@@ -33,4 +33,11 @@ export class Line {
 		}
 		return this.getY(point.x) === point.y;
 	}
+
+	static areCollinear(points: Vector[]) {
+		if(points.length <= 2) { return true; }
+		const [p1, p2, ...others] = points;
+		const line = new Line(p1, p2);
+		return others.every(p => line.contains(p));
+	}
 }

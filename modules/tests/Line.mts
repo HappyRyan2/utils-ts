@@ -29,3 +29,12 @@ describe("Line.contains", () => {
 		assert.isFalse(line.contains(new Vector(2, 3)));
 	});
 });
+
+describe("Line.areCollinear", () => {
+	it("returns true when the points are collinear", () => {
+		assert.isTrue(Line.areCollinear([new Vector(1, 2), new Vector(4, 1), new Vector(7, 0)]));
+	});
+	it("returns false when the points are not collinear", () => {
+		assert.isFalse(Line.areCollinear([new Vector(1, 2), new Vector(4, 1), new Vector(7, 1)]));
+	});
+});
