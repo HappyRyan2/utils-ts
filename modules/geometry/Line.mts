@@ -26,4 +26,11 @@ export class Line {
 	isVertical() {
 		return this.endpoint1.x === this.endpoint2.x;
 	}
+
+	contains(point: Vector) {
+		if(this.isVertical()) {
+			return point.x === this.endpoint1.x;
+		}
+		return this.getY(point.x) === point.y;
+	}
 }

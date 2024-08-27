@@ -17,3 +17,15 @@ describe("Line.getY", () => {
 		assert.equal(x, 5);
 	});
 });
+describe("Line.contains", () => {
+	it("returns whether the line contain the point", () => {
+		const line = new Line(new Vector(1, 2), new Vector(3, 4));
+		assert.isTrue(line.contains(new Vector(0, 1)));
+		assert.isFalse(line.contains(new Vector(1, 1)));
+	});
+	it("works when the line is vertical", () => {
+		const line = new Line(new Vector(1, 2), new Vector(1, 3));
+		assert.isTrue(line.contains(new Vector(1, 4)));
+		assert.isFalse(line.contains(new Vector(2, 3)));
+	});
+});
