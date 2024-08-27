@@ -38,3 +38,25 @@ describe("Line.areCollinear", () => {
 		assert.isFalse(Line.areCollinear([new Vector(1, 2), new Vector(4, 1), new Vector(7, 1)]));
 	});
 });
+describe("Line.isPerpendicularTo", () => {
+	it("returns true when the lines are perpendicular", () => {
+		const line1 = new Line(new Vector(0, 0), new Vector(1, 2));
+		const line2 = new Line(new Vector(0, 0), new Vector(-2, 1));
+		assert.isTrue(line1.isPerpendicularTo(line2));
+		assert.isTrue(line2.isPerpendicularTo(line1));
+	});
+	it("returns false when the lines are not perpendicular", () => {
+		const line1 = new Line(new Vector(0, 0), new Vector(1, 3));
+		const line2 = new Line(new Vector(0, 0), new Vector(-2, 1));
+		assert.isFalse(line1.isPerpendicularTo(line2));
+		assert.isFalse(line2.isPerpendicularTo(line1));
+	});
+	it("works when the lines are vertical and horizontal", () => {
+		const line1 = new Line(new Vector(0, 0), new Vector(1, 0));
+		const line2 = new Line(new Vector(0, 0), new Vector(0, 1));
+		assert.isTrue(line1.isPerpendicularTo(line2));
+		assert.isTrue(line2.isPerpendicularTo(line1));
+		assert.isFalse(line1.isPerpendicularTo(line1));
+		assert.isFalse(line2.isPerpendicularTo(line2));
+	});
+});

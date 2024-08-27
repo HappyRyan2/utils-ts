@@ -38,6 +38,13 @@ export class Line {
 		return (this.endpoint1.y - this.endpoint2.y) / (this.endpoint1.x - this.endpoint2.x);
 	}
 
+	isPerpendicularTo(line: Line) {
+		if(this.isVertical()) { return !line.isVertical(); }
+		if(this.isHorizontal()) { return !line.isHorizontal(); }
+		if(line.isHorizontal() || line.isVertical()) { return false; }
+		return this.slope() === -1 / line.slope();
+	}
+
 	static areCollinear(points: Vector[]) {
 		if(points.length <= 2) { return true; }
 		const [p1, p2, ...others] = points;
