@@ -39,8 +39,8 @@ export class Line {
 	}
 
 	isPerpendicularTo(line: Line) {
-		if(this.isVertical()) { return !line.isVertical(); }
-		if(this.isHorizontal()) { return !line.isHorizontal(); }
+		if(this.isVertical()) { return line.isHorizontal(); }
+		if(this.isHorizontal()) { return line.isVertical(); }
 		if(line.isHorizontal() || line.isVertical()) { return false; }
 		return this.slope() === -1 / line.slope();
 	}

@@ -59,4 +59,13 @@ describe("Line.isPerpendicularTo", () => {
 		assert.isFalse(line1.isPerpendicularTo(line1));
 		assert.isFalse(line2.isPerpendicularTo(line2));
 	});
+	it("returns false when one of the lines is vertical/horizontal and the other is not", () => {
+		const vertical = new Line(new Vector(0, 0), new Vector(0, 1));
+		const horizontal = new Line(new Vector(0, 0), new Vector(1, 0));
+		const otherLine = new Line(new Vector(0, 0), new Vector(1, 1));
+		assert.isFalse(vertical.isPerpendicularTo(otherLine));
+		assert.isFalse(otherLine.isPerpendicularTo(vertical));
+		assert.isFalse(horizontal.isPerpendicularTo(otherLine));
+		assert.isFalse(otherLine.isPerpendicularTo(horizontal));
+	});
 });
