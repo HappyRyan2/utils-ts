@@ -23,4 +23,7 @@ export class Line {
 	isHorizontal() {
 		return this.endpoint1.y === this.endpoint2.y;
 	}
+	isVertical() {
+		return this.endpoint1.x === this.endpoint2.x;
+	}
 }
