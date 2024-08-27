@@ -34,6 +34,10 @@ export class Line {
 		return this.getY(point.x) === point.y;
 	}
 
+	slope() {
+		return (this.endpoint1.y - this.endpoint2.y) / (this.endpoint1.x - this.endpoint2.x);
+	}
+
 	static areCollinear(points: Vector[]) {
 		if(points.length <= 2) { return true; }
 		const [p1, p2, ...others] = points;
