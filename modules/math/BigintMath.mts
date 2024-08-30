@@ -68,4 +68,7 @@ export class BigintMath {
 		}
 		return (min ** 2n <= num && (min + 1n) ** 2n > num) ? min : max;
 	}
+	static isSquare(num: bigint) {
+		return BigintMath.floorSqrt(num) ** 2n === num;
+	}
 }
