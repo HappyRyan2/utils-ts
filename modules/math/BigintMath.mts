@@ -54,4 +54,18 @@ export class BigintMath {
 		}
 		return result;
 	}
+	static floorSqrt(num: bigint) {
+		let min = 0n;
+		let max = num;
+		while(max - min > 1) {
+			const halfway = (min + max) / 2n;
+			if(halfway ** 2n < num) {
+				min = halfway;
+			}
+			else {
+				max = halfway;
+			}
+		}
+		return (min ** 2n <= num && (min + 1n) ** 2n > num) ? min : max;
+	}
 }

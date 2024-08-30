@@ -18,3 +18,12 @@ describe("BigintMath.divideCeil", () => {
 		assert.equal(BigintMath.divideCeil(16n, 5n), 4n);
 	});
 });
+describe("BigintMath.floorSqrt", () => {
+	it("correctly computes floor(sqrt(n)) and works for very big numbers", () => {
+		const num = 10n ** 15n;
+		assert.equal(BigintMath.floorSqrt(num ** 2n), num);
+		assert.equal(BigintMath.floorSqrt(num ** 2n + 1n), num);
+		assert.equal(BigintMath.floorSqrt((num + 1n) ** 2n - 1n), num);
+		assert.equal(BigintMath.floorSqrt((num + 1n) ** 2n), num + 1n);
+	});
+});
