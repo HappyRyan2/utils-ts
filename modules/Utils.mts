@@ -134,6 +134,13 @@ export class Utils {
 			}
 		}
 	}
+	static union<T>(set1: Iterable<T>, set2: Iterable<T>) {
+		const result = new Set([...set1]);
+		for(const value of set2) {
+			result.add(value);
+		}
+		return result;
+	}
 
 	private static remainingValidItems<T>(items: T[], index: number, allowRepetition: DuplicateMode, orderMode: OrderMode) {
 		if(orderMode === "tuples") {
