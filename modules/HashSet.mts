@@ -29,4 +29,8 @@ export class HashSet<T> {
 	*[Symbol.iterator]() {
 		yield* this.values.values();
 	}
+	
+	filter(callback: (value: T) => boolean) {
+		return new HashSet([...this].filter(callback));
+	}
 }
