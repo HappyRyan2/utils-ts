@@ -81,4 +81,11 @@ export class BigintMath {
 		}
 		return result;
 	}
+	static generalizedModulo(num: bigint, modulo: bigint) {
+		if(modulo <= 0) {
+			throw new Error("Cannot take the modulo by a negative number or 0.");
+		}
+		if(num >= 0) { return num % modulo; }
+		return num + modulo * BigintMath.divideCeil(-num, modulo);
+	}
 }
