@@ -33,4 +33,7 @@ export class HashSet<T> {
 	filter(callback: (value: T) => boolean) {
 		return new HashSet([...this].filter(callback));
 	}
+	toString() {
+		return `{${[...this.values.values()].map(v => `${v}`).join(", ")}}`;
+	}
 }
