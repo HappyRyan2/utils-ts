@@ -267,3 +267,31 @@ describe("Utils.subsets", () => {
 		]);
 	});
 });
+describe("Utils.binarySearch", () => {
+	const array = [1, 1, 2, 2, 2, 3, 4, 5, 10];
+	it("works when there is a value for which the callback returns zero", () => {
+		const callback = ((n: number) => array[n] - 3);
+		const result = Utils.binarySearch(0, 8, callback);
+		assert.equal(result, 5);
+	});
+	it("can return the first value when there are multiple values", () => {
+		const callback = ((n: number) => array[n] - 2);
+		const result = Utils.binarySearch(0, 8, callback, "first");
+		assert.equal(result, 2);
+	});
+	it("can return the last value when there are multiple values", () => {
+		const callback = ((n: number) => array[n] - 2);
+		const result = Utils.binarySearch(0, 8, callback, "last");
+		assert.equal(result, 4);
+	});
+	it("can return the value before when there are no values for which the callback returns zero", () => {
+		const callback = ((n: number) => array[n] - 6);
+		const result = Utils.binarySearch(0, 8, callback, "first");
+		assert.equal(result, 7);
+	});
+	it("can return the value after when there are no values for which the callback returns zero", () => {
+		const callback = ((n: number) => array[n] - 6);
+		const result = Utils.binarySearch(0, 8, callback, "last");
+		assert.equal(result, 8);
+	});
+});

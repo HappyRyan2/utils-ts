@@ -29,6 +29,33 @@ export class Utils {
 		}
 		return result;
 	}
+	static binarySearch(min: number, max: number, increasingFunction: (value: number) => number, mode: "first" | "last" = "first"): number {
+		while(max - min > 1) {
+			const mid = Math.floor((min + max) / 2);
+			const result = increasingFunction(mid);
+			if(result < 0) {
+				min = mid;
+			}
+			else if(result > 0) {
+				max = mid;
+			}
+			else {
+				if(mode === "first") { max = mid; }
+				else if(mode === "last") { min = mid; }
+				else { min = max = mid; break; }
+			}
+		}
+		if(max === min) { return min; }
+		const minValue = increasingFunction(min);
+		const maxValue = increasingFunction(max);
+		if(minValue === 0 && maxValue !== 0) {
+			return min;
+		}
+		if(minValue !== 0 && maxValue === 0) {
+			return max;
+		}
+		return mode === "first" ? min : max;
+	}
 
 	static minEntry(items: number[]): [number, number, number];
 	static minEntry<T>(items: T[], callback: ((item: T, index: number) => number)): [number, T, number];
