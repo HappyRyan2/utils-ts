@@ -14,7 +14,7 @@ export class Table<T> {
 	}
 
 
-	*entries() {
+	*entries(): Generator<[number, number, T]> {
 		for(let y = 0; y < this.height; y ++) {
 			for(let x = 0; x < this.width; x ++) {
 				yield [x, y, this.rows[y][x]];
