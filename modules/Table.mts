@@ -55,6 +55,15 @@ export class Table<T> {
 		if(!entry) { return null; }
 		return new Vector(entry[0], entry[1]);
 	}
+	positionsOf(value: T) {
+		const positions = [];
+		for(const [x, y, v] of this.entries()) {
+			if(v === value) {
+				positions.push(new Vector(x, y));
+			}
+		}
+		return positions;
+	}
 	includes(value: T) {
 		for(const row of this.rows) {
 			if(row.includes(value)) { return true; }

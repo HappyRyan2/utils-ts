@@ -1,6 +1,7 @@
 import { assert } from "chai";
 import { describe } from "mocha";
 import { Table } from "../Table.mjs";
+import { Vector } from "../geometry/Vector.mjs";
 
 describe("Table.slice", () => {
 	it("extracts a rectangular subregion into a Table", () => {
@@ -51,5 +52,18 @@ describe("Table.findEntry", () => {
 		]);
 		const entry = table.findEntry(v => v > 1000);
 		assert.isNull(entry);
+	});
+});
+describe("Table.positionsOf", () => {
+	it("returns the positions at which the value occurs", () => {
+		const positions = new Table([
+			["a", "b", "c"],
+			["b", "a", "b"]
+		]).positionsOf("b");
+		assert.sameDeepMembers(positions, [
+			new Vector(1, 0),
+			new Vector(0, 1),
+			new Vector(2, 1)
+		]);
 	});
 });
