@@ -56,6 +56,9 @@ export class Utils {
 		}
 		return mode === "first" ? min : max;
 	}
+	static binaryIndexOf(value: number, sortedArray: number[], mode: "first" | "last") {
+		return Utils.binarySearch(0, sortedArray.length - 1, i => sortedArray[i] - value, mode);
+	}
 
 	static minEntry(items: number[]): [number, number, number];
 	static minEntry<T>(items: T[], callback: ((item: T, index: number) => number)): [number, T, number];

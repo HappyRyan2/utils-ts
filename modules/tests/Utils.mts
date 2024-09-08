@@ -295,3 +295,14 @@ describe("Utils.binarySearch", () => {
 		assert.equal(result, 8);
 	});
 });
+describe("Utils.binaryIndexOf", () => {
+	it("returns the index before/after where the value should be if the value is not in the array", () => {
+		const array = [10, 20];
+		assert.equal(Utils.binaryIndexOf(15, array, "first"), 0);
+		assert.equal(Utils.binaryIndexOf(15, array, "last"), 1);
+	});
+	it("works when the value is the first in the array", () => {
+		const result = Utils.binaryIndexOf(2, [2, 3, 6], "first");
+		assert.equal(result, 0);
+	});
+});
