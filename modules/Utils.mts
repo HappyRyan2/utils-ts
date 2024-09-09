@@ -48,6 +48,12 @@ export class Utils {
 		if(max === min) { return min; }
 		const minValue = increasingFunction(min);
 		const maxValue = increasingFunction(max);
+		if(minValue > 0 && maxValue > 0) {
+			return min;
+		}
+		if(minValue < 0 && maxValue < 0) {
+			return max;
+		}
 		if(minValue === 0 && maxValue !== 0) {
 			return min;
 		}

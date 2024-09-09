@@ -294,6 +294,16 @@ describe("Utils.binarySearch", () => {
 		const result = Utils.binarySearch(0, 8, callback, "last");
 		assert.equal(result, 8);
 	});
+	it("returns the minimum if the callback returns positive for all values in the range", () => {
+		const callback = ((n: number) => array[n]);
+		const result = Utils.binarySearch(0, 8, callback, "last");
+		assert.equal(result, 0);
+	});
+	it("returns the maximum if the callback returns negative for all values in the range", () => {
+		const callback = ((n: number) => array[n] - 100);
+		const result = Utils.binarySearch(0, 8, callback, "last");
+		assert.equal(result, 8);
+	});
 });
 describe("Utils.binaryIndexOf", () => {
 	it("returns the index before/after where the value should be if the value is not in the array", () => {
@@ -304,5 +314,15 @@ describe("Utils.binaryIndexOf", () => {
 	it("works when the value is the first in the array", () => {
 		const result = Utils.binaryIndexOf(2, [2, 3, 6], "first");
 		assert.equal(result, 0);
+	});
+	it("returns the first index when the value is less than all the values in the array", () => {
+		const array = [10, 20];
+		assert.equal(Utils.binaryIndexOf(5, array, "last"), 0);
+		assert.equal(Utils.binaryIndexOf(5, array, "first"), 0);
+	});
+	it("returns the last index when the value is greater than all the values in the array", () => {
+		const array = [10, 20];
+		assert.equal(Utils.binaryIndexOf(25, array, "last"), 1);
+		assert.equal(Utils.binaryIndexOf(25, array, "first"), 1);
 	});
 });
