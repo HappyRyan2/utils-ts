@@ -326,3 +326,16 @@ describe("Utils.binaryIndexOf", () => {
 		assert.equal(Utils.binaryIndexOf(25, array, "first"), 1);
 	});
 });
+describe("Utils.setEquals", () => {
+	it("returns true if the iterables have the same items, without taking order into account", () => {
+		assert.isTrue(Utils.setEquals([1, 2], [2, 1]));
+	});
+	it("does not consider duplicates when determining equality", () => {
+		assert.isTrue(Utils.setEquals([1, 1, 1, 1], [1]));
+		assert.isTrue(Utils.setEquals([1], [1, 1, 1, 1]));
+	});
+	it("returns false if there is an item in one set but not the other", () => {
+		assert.isFalse(Utils.setEquals([1, 2], [2]));
+		assert.isFalse(Utils.setEquals([2], [1, 2]));
+	});
+});

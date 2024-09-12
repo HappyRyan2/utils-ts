@@ -177,6 +177,17 @@ export class Utils {
 		}
 		return result;
 	}
+	static setEquals<T>(iterable1: Iterable<T>, iterable2: Iterable<T>) {
+		const set1 = iterable1 instanceof Set ? iterable1 : new Set(iterable1);
+		const set2 = iterable2 instanceof Set ? iterable2 : new Set(iterable2);
+		if(set1.size !== set2.size) { return false; }
+		for(const value of set1) {
+			if(!set2.has(value)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	private static remainingValidItems<T>(items: T[], index: number, allowRepetition: DuplicateMode, orderMode: OrderMode) {
 		if(orderMode === "tuples") {
