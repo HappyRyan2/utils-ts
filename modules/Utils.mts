@@ -188,6 +188,40 @@ export class Utils {
 		}
 		return true;
 	}
+	static setPartitions<T>(values: Iterable<T>, numSets?: number): Set<Set<T>>[] {
+		const size = [...values].length;
+		if(typeof numSets !== "number") {
+			let result: Set<Set<T>>[] = [];
+			for(let sets = 0; sets <= size; sets ++) {
+				result = result.concat(Utils.setPartitions(values, sets));
+			}
+			return result;
+		}
+
+		if(numSets === 0) {
+			const EMPTY_PARTITION = new Set([]);
+			return size === 0 ? [EMPTY_PARTITION] : [];
+		}
+		else if(size === 0) {
+			return [];
+		}
+		const [first, ...others] = values;
+		const result: Set<Set<T>>[] = [];
+		for(const partition of Utils.setPartitions(others, numSets - 1)) {
+			result.push(new Set([new Set([first]), ...partition]));
+		}
+		for(const partition of Utils.setPartitions(others, numSets)) {
+			const partitionArray = [...partition];
+			for(let i = 0; i < partitionArray.length; i ++) {
+				const setsBefore = partitionArray.slice(0, i).map(s => new Set(s));
+				const set = new Set(partitionArray[i]);
+				const setsAfter = partitionArray.slice(i + 1).map(s => new Set(s));
+				set.add(first);
+				result.push(new Set([...setsBefore, set, ...setsAfter]));
+			}
+		}
+		return result;
+	}
 
 	private static remainingValidItems<T>(items: T[], index: number, allowRepetition: DuplicateMode, orderMode: OrderMode) {
 		if(orderMode === "tuples") {

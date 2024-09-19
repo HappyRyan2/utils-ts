@@ -339,3 +339,13 @@ describe("Utils.setEquals", () => {
 		assert.isFalse(Utils.setEquals([2], [1, 2]));
 	});
 });
+describe("Utils.setPartitions", () => {
+	it("can generate a list of all the partitions of a set into a given number of nonempty subsets", () => {
+		const result = Utils.setPartitions([1, 2, 3], 2);
+		assert.sameDeepMembers(result, [
+			new Set([new Set([1]), new Set([3, 2])]),
+			new Set([new Set([2, 1]), new Set([3])]),
+			new Set([new Set([2]), new Set([3, 1])]),
+		]);
+	});
+});
