@@ -349,3 +349,20 @@ describe("Utils.setPartitions", () => {
 		]);
 	});
 });
+describe("Utils.arrayEquals", () => {
+	it("returns whether the arrays contain the same elements in the same order", () => {
+		assert.isTrue(Utils.arrayEquals([1, 2], [1, 2]));
+
+		assert.isFalse(Utils.arrayEquals([1, 2], [2, 1]));
+		assert.isFalse(Utils.arrayEquals([1], [1, 2]));
+		assert.isFalse(Utils.arrayEquals([1, 2], [1]));
+	});
+	it("can use a function to compare the values in the arrays for equality", () => {
+		const equals = (a: { x: number }, b: { x: number }) => (a.x === b.x);
+		assert.isTrue(Utils.arrayEquals([{x:1}, {x:2}], [{x:1}, {x:2}], equals));
+
+		assert.isFalse(Utils.arrayEquals([{x:1}, {x:2}], [{x:2}, {x:1}], equals));
+		assert.isFalse(Utils.arrayEquals([{x:1}], [{x:1}, {x:2}], equals));
+		assert.isFalse(Utils.arrayEquals([{x:1}, {x:2}], [{x:1}], equals));
+	});
+});

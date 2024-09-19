@@ -65,6 +65,15 @@ export class Utils {
 	static binaryIndexOf(value: number, sortedArray: number[], mode: "first" | "last") {
 		return Utils.binarySearch(0, sortedArray.length - 1, i => sortedArray[i] - value, mode);
 	}
+	static arrayEquals<T>(array1: T[], array2: T[], equals?: (v1: T, v2: T) => boolean) {
+		if(array1.length !== array2.length) {
+			return false;
+		}
+		if(equals) {
+			return array1.every((v, i) => equals(v, array2[i]));
+		}
+		return array1.every((v, i) => v === array2[i]);
+	}
 
 	static minEntry(items: number[]): [number, number, number];
 	static minEntry<T>(items: T[], callback: ((item: T, index: number) => number)): [number, T, number];
