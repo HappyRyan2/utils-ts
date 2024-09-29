@@ -74,6 +74,19 @@ export class Utils {
 		}
 		return array1.every((v, i) => v === array2[i]);
 	}
+	static mapEquals<K, V>(map1: Map<K, V>, map2: Map<K, V>, equals?: (v1: V, v2: V) => boolean) {
+		if(map1.size !== map2.size) {
+			return false;
+		}
+		for(const [key, value] of map1) {
+			if(
+				!map2.has(key) || 
+				(!equals && map1.get(key) !== map2.get(key)) ||
+				(equals && !equals(value, map2.get(key)!))
+			) { return false; }
+		}
+		return true;
+	}
 
 	static minEntry(items: number[]): [number, number, number];
 	static minEntry<T>(items: T[], callback: ((item: T, index: number) => number)): [number, T, number];

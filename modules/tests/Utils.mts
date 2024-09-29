@@ -366,3 +366,30 @@ describe("Utils.arrayEquals", () => {
 		assert.isFalse(Utils.arrayEquals([{x:1}, {x:2}], [{x:1}], equals));
 	});
 });
+describe("Utils.mapEquals", () => {
+	it("returns true if the maps have the same set of key-value pairs", () => {
+		const map1 = new Map([[1, 2], [3, 4]]);
+		const map2 = new Map([[1, 2], [3, 4]]);
+		assert.isTrue(Utils.mapEquals(map1, map2));
+	});
+	it("returns false if there are keys that are in one map but not the other", () => {
+		const map1 = new Map([[1, 2], [3, 4]]);
+		const map2 = new Map([[1, 2]]);
+		assert.isFalse(Utils.mapEquals(map1, map2));
+		assert.isFalse(Utils.mapEquals(map2, map1));
+	});
+	it("returns false if some of the keys have a different value in the two maps", () => {
+		const map1 = new Map([[1, 2]]);
+		const map2 = new Map([[1, 3]]);
+		assert.isFalse(Utils.mapEquals(map1, map2));
+		assert.isFalse(Utils.mapEquals(map2, map1));
+	});
+	it("can use a function to compare the values for equality", () => {
+		const map1 = new Map([[1, { x: 2 }]]);
+		const map2 = new Map([[1, { x: 2 }]]);
+		assert.isTrue(Utils.mapEquals(map1, map2, (a, b) => a.x === b.x));
+		
+		const map3 = new Map([[1, { x: 3 }]]);
+		assert.isFalse(Utils.mapEquals(map1, map3, (a, b) => a.x === b.x));
+	});
+});
