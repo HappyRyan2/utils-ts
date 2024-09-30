@@ -393,3 +393,11 @@ describe("Utils.mapEquals", () => {
 		assert.isFalse(Utils.mapEquals(map1, map3, (a, b) => a.x === b.x));
 	});
 });
+describe("Utils.areDisjoint", () => {
+	it("returns true if the iterables have no element in common", () => {
+		assert.isTrue(Utils.areDisjoint([1, 2], [3, 4, 5]));
+	});
+	it("returns false if the iterables have an element in common", () => {
+		assert.isFalse(Utils.areDisjoint([1, 2], [3, 4, 1]));
+	});
+});

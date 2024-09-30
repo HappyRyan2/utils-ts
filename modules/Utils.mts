@@ -244,6 +244,15 @@ export class Utils {
 		}
 		return result;
 	}
+	static areDisjoint<T>(iterable1: Iterable<T>, iterable2: Iterable<T>) {
+		const set1 = new Set(iterable1);
+		for(const value of iterable2) {
+			if(set1.has(value)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	private static remainingValidItems<T>(items: T[], index: number, allowRepetition: DuplicateMode, orderMode: OrderMode) {
 		if(orderMode === "tuples") {
