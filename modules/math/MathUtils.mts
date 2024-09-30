@@ -1,9 +1,9 @@
 export class MathUtils {
-	static sum(numbers: number[]) {
-		return numbers.reduce((accumulator, value) => accumulator + value, 0);
+	static sum(numbers: Iterable<number>) {
+		return [...numbers].reduce((accumulator, value) => accumulator + value, 0);
 	}
-	static product(numbers: number[]) {
-		return numbers.reduce((accumulator, value) => accumulator * value, 1);
+	static product(numbers: Iterable<number>) {
+		return [...numbers].reduce((accumulator, value) => accumulator * value, 1);
 	}
 	static dist(num1: number, num2: number) {
 		return Math.abs(num1 - num2);
