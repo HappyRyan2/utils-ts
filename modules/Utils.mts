@@ -341,4 +341,20 @@ export class Utils {
 			return result;
 		};
 	}
+	
+	static injections<T, S>(domain: Iterable<T>, range: Iterable<S>): Map<T, S>[] {
+		if([...domain].length === 0) {
+			return [new Map()];
+		}
+		const [first, ...others] = domain;
+		const result = [];
+		for(const image of range) {
+			for(const injection of Utils.injections(others, [...range].filter(v => v !== image))) {
+				const newInjection = new Map(injection);
+				newInjection.set(first, image);
+				result.push(newInjection);
+			}
+		}
+		return result;
+	}
 }
