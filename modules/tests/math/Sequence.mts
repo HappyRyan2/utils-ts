@@ -205,3 +205,9 @@ describe("Sequence.tuplesWithSum", () => {
 		]);
 	});
 });
+describe("Sequence.PRIMES", () => {
+	it("can generate a list of the primes up to 20", () => {
+		const primes = Sequence.PRIMES.termsBelow(20);
+		assert.sameOrderedMembers([...primes], [2, 3, 5, 7, 11, 13, 17, 19]);
+	});
+});

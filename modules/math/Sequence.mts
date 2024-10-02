@@ -61,12 +61,18 @@ export class Sequence {
 	static POSITIVE_INTEGERS = new Sequence(n => n + 1);
 	static NONNEGATIVE_INTEGERS = new Sequence(n => n);
 	static PRIMES = new Sequence(function*() {
-		let num = 2;
-		while(true) {
-			if(MathUtils.isPrime(num)) {
-				yield num;
+		yield 2;
+		yield 3;
+		const primes = [2, 3];
+		outerLoop: for(let num = 5; true; num += (num % 6 === 5) ? 2 : 4) {
+			for(const prime of primes) {
+				if(num % prime === 0) {
+					continue outerLoop;
+				}
+				if(prime ** 2 > num) { break; }
 			}
-			num ++;
+			primes.push(num);
+			yield num;
 		}
 	});
 
