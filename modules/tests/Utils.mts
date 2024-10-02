@@ -401,3 +401,9 @@ describe("Utils.areDisjoint", () => {
 		assert.isFalse(Utils.areDisjoint([1, 2], [3, 4, 1]));
 	});
 });
+describe("Utils.intersection", () => {
+	it("can compute the intersection of two set-like objects", () => {
+		const result = Utils.intersection([1, 2], [2, 3]);
+		assert.deepEqual(result, new Set([2]));
+	});
+});
