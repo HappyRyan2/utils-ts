@@ -102,6 +102,12 @@ describe("MathUtils.factors", () => {
 		assert.deepEqual(factors, [7]);
 	});
 });
+describe("MathUtils.factorsWithMultiplicity", () => {
+	it("returns the prime factors of the number, counted with multiplicity", () => {
+		const factors = MathUtils.factorsWithMultiplicity(20);
+		assert.deepEqual(factors, [2, 2, 5]);
+	});
+});
 describe("MathUtils.divisors", () => {
 	it("returns a list of all the divisors of the number, in increasing order", () => {
 		const divisors = MathUtils.divisors(36);

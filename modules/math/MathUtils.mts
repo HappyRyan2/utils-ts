@@ -120,6 +120,16 @@ export class MathUtils {
 		}
 		return result;
 	}
+	static factorsWithMultiplicity(num: number) {
+		const result = [];
+		const factorization = MathUtils.factorize(num);
+		for(const [prime, exponent] of factorization) {
+			for(let i = 0; i < exponent; i ++) {
+				result.push(prime);
+			}
+		}
+		return result;
+	}
 	static divisors(num: number) {
 		const divisorsBelowSqrt = [];
 		const divisorsAboveSqrt = [];
