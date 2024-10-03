@@ -182,4 +182,7 @@ export class MathUtils {
 		} while(num !== 0);
 		return digits;
 	}
+	static fromDigits(digits: number[]) {
+		return Number.parseInt(digits.join(""));
+	}
 }

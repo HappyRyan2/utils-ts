@@ -146,3 +146,9 @@ describe("MathUtils.binomial", () => {
 		assert.equal(result, 210);
 	});
 });
+describe("MathUtils.fromDigits", () => {
+	it("constructs a number from the given list of digits", () => {
+		const num = MathUtils.fromDigits([1, 7, 2, 9]);
+		assert.equal(num, 1729);
+	});
+});
