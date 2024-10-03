@@ -5,6 +5,9 @@ type CartesianProductType<T extends unknown[][]> = {
 	[P in keyof T]: T[P] extends Array<infer U>? U: never
 };
 
+type _TupleOf<T, N extends number, R extends unknown[]> = R["length"] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+export type Tuple<T, N extends number> = N extends N ? number extends N ? T[] : _TupleOf<T, N, []> : never;
+
 export class Utils {
 	static randomItem<T>(items: Array<T>) {
 		const index = Math.floor(Math.random() * items.length);
@@ -170,6 +173,10 @@ export class Utils {
 		else {
 			yield [] as CartesianProductType<T>;
 		}
+	}
+	static *cartesianPower<T, N extends number>(set: Iterable<T>, power: N) {
+		const combinations = new Array(power).fill(null).map(_ => [...set]);
+		yield* Utils.cartesianProduct(...combinations) as Generator<Tuple<T, N>>;
 	}
 	static *subsets<T>(items: Set<T> | Array<T>, size?: number): Generator<Set<T>> {
 		if(typeof size !== "number") {

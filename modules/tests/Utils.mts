@@ -13,6 +13,21 @@ describe("Utils.cartesianProduct", () => {
 		]);
 	});
 });
+describe("Utils.cartesianPower", () => {
+	it("returns the set of all tuples of the given size with elements chosen from the given set", () => {
+		const values = [...Utils.cartesianPower(["a", "b"], 3)];
+		assert.sameDeepMembers(values, [
+			["a", "a", "a"],
+			["a", "a", "b"],
+			["a", "b", "a"],
+			["a", "b", "b"],
+			["b", "a", "a"],
+			["b", "a", "b"],
+			["b", "b", "a"],
+			["b", "b", "b"],
+		]);
+	});
+});
 describe("Utils.combinations", () => {
 	it("can return all the tuples of distinct items", () => {
 		const items = [1, 2, 2, 3, 4];
